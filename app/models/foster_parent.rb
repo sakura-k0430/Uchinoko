@@ -1,0 +1,2 @@
+class FosterParent < ApplicationRecord
+end
