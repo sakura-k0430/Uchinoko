@@ -1,0 +1,100 @@
+<header style="background-color:#87cefa">
+  <nav class="navbar navbar-expand-lg navbar-dark" >
+    <div class="container">
+      <a class="navbar-brand">
+        <%= link_to root_path,class: 'nav-link text-light' do %>
+        <h2>Uchinoko</h2>
+        <% end %>
+      </a>
+        <ul class="navbar-nav ml-auto">
+        <% if customer_signed_in? %>
+          <li>
+            <%= link_to customers_mypage_path,class: 'nav-link text-light' do %>
+              マイページ
+            <% end %>
+          </li>
+        <!--ギャラリー投稿一覧リンク-->
+          <li>
+            <%=  link_to galleries_path,class: 'nav-link text-light' do %>
+              ギャラリー
+            <% end %>
+          </li>
+        <!--迷子の掲示板一覧リンク-->
+          <li>
+            <%=  link_to lost_pets_path,class: 'nav-link text-light' do %>
+              迷子掲示板
+            <% end %>
+          </li>
+        <!--里親募集掲示板一覧のリンク-->
+          <li>
+            <%=  link_to foster_parents_path,class: 'nav-link text-light' do %>
+              里親掲示板
+            <% end %>
+          </li>
+           <li>
+            <%=  link_to articles_path,class: 'nav-link text-light' do %>
+              コラム
+            <% end %>
+          </li>
+        <!--ログアウト-->
+          <li>
+            <%= link_to destroy_customer_session_path, method: :delete,class: 'nav-link text-light' do %>
+              ログアウト
+            <% end %>
+          </li>
+        <% elsif admin_signed_in? %>
+          <li>
+            <%= link_to admin_customers_path,class: 'nav-link text-light' do %>
+              会員一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to admin_articles_path,class: 'nav-link text-light' do %>
+              コラム一覧/登録
+            <% end %>
+          </li>
+          <li>
+            <%= link_to admin_articles_path,class: 'nav-link text-light' do %>
+              病院一覧/登録
+            <% end %>
+          </li>
+          <li>
+            <%= link_to admin_genres_path,class: 'nav-link text-light' do %>
+             病院ジャンル一覧/登録
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_admin_session_path, method: :delete,class: 'nav-link text-light' do %>
+             ログアウト
+            <% end %>
+          </li>
+
+        <% else %>
+        <!--マイページ-->
+          <li>
+            <%= link_to about_path,class: 'nav-link text-light' do %>
+              About
+            <% end %>
+          </li>
+        <!--新規登録-->
+          <li>
+            <%=  link_to new_customer_registration_path ,class: 'nav-link text-light' do %>
+              新規登録
+            <% end %>
+          </li>
+        <!--ログインページ-->
+          <li>
+            <%= link_to new_customer_session_path, method: :get,class: 'nav-link text-light' do %>
+              ログイン
+            <% end %>
+          </li>
+        <% end %>
+        </ul>
+            <div class= "d-flex align-items-end">
+            <%= form_with local: true, method: :get do |f| %>
+              <%= f.text_field :word,placeholder: "Search" %>
+            <% end %>
+          </div>
+    </div>
+  </nav>
+</header>
