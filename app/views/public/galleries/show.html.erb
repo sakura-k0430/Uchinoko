@@ -1,0 +1,15 @@
+<h2>タイトル</h2>
+<p><%= @gallery.title %></p>
+
+<h2>本文</h2>
+<p><%= @gallery.body %></p>
+
+<h2>画像</h2>
+<% if @gallery.image.attached? %>
+  <%= image_tag @gallery.image, size: "300x300" %>
+<% else %>
+  <%= image_tag 'no_image', size: "300x300" %>
+<% end %>
+
+<%= link_to "編集", galleries_edit_path(@gallery.id) %>
+<%= link_to "削除", destroy_gallery_path(@gallery.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>

@@ -1,0 +1,17 @@
+<h1>ギャラリー一覧</h1>
+
+<% @galleries.each do |gallery| %>
+
+  <p>タイトル</p>
+  <span>
+  <%= link_to gallery.title, gallery_path(gallery.id) %>
+  </span>
+
+  <p>画像</p>
+  <% if list.image.attached? %>
+  <%= image_tag gallery.image, size: "200x200" %>
+  <% else %>
+  <%= image_tag 'no_image', size: "200x200" %>
+  <% end %>
+
+<% end %>
