@@ -1,0 +1,17 @@
+<h2>迷子の掲示板詳細</h2>
+
+<p>ユーザーネーム：<%= @lost_pet.customer.name %></p>
+<p>投稿ユーザー画像：<%= image_tag @lost_pet.customer.get_profile_image(100,100) %></p>
+<h2>タイトル</h2>
+<p><%= @lost_pet.title %></p>
+
+<h2>本文</h2>
+<p><%= @lost_pet.body %></p>
+
+<h2>画像</h2>
+  <%= image_tag @lost_pet.lost_pet_image, size: "300x300" %>
+
+<p>投稿日：<%= @lost_pet.created_at.strftime('%Y/%m/%d') %></p>
+
+<%= link_to "編集", edit_lost_pet_path(@lost_pet.id) %>
+<%= link_to "削除", lost_pet_path(@lost_pet.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>

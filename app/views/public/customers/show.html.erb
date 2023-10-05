@@ -1,0 +1,30 @@
+<h2>マイページ</h2>
+<!-- ユーザーの詳細 -->
+<div>
+  <h3>
+    ユーザーネーム
+    <%= @customer.name %>
+  </h3>
+  <h3>
+    住んでいる都道府県
+    <%= @customer.address %>
+  </h3>
+  <%= image_tag @customer.get_profile_image(100,100) %>
+<!--ログインしているユーザー本人であれば編集を表示-->
+  <% if @customer == current_customer %>
+  <p><%= link_to "プロフィール編集", edit_customer_path(@customer.id) %></p>
+  <% end %>
+</div>
+
+<!-- ユーザーの投稿一覧 -->
+<%  @galleries.each do |gallery| %>
+<div>
+  <%= link_to gallery_path(gallery.id) do %>
+    <%= image_tag gallery.gallery_image, size: "300x300"%>
+  <% end %>
+  <p>投稿ユーザー画像：<%= image_tag gallery.customer.get_profile_image(100,100) %></p>
+  <p>タイトル：<%= gallery.title %></p>
+  <p>本文：<%= gallery.body %></p>
+  <p>ユーザーネーム：<%= gallery.customer.name %></p>
+</div>
+<% end %>

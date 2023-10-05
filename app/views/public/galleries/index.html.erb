@@ -1,12 +1,12 @@
 <h1>ギャラリー一覧</h1>
 
 <% @galleries.each do |gallery| %>
-
+  <p>ユーザーネーム：<%= gallery.customer.name %></p>
+  <p>投稿ユーザー画像：<%= image_tag gallery.customer.get_profile_image(100,100) %></p>
   <p>タイトル</p>
   <span>
   <%= link_to gallery.title, gallery_path(gallery.id) %>
   </span>
-
   <p>画像</p>
   <%= image_tag gallery.gallery_image, size: "200x200" %>
 

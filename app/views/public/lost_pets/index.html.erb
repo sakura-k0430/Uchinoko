@@ -1,0 +1,27 @@
+<h1>迷子掲示板一覧</h1>
+
+<% @lost_pets.each do |lost_pet| %>
+  <p>ユーザーネーム：<%= lost_pet.customer.name %></p>
+  <p>投稿ユーザー画像：<%= image_tag lost_pet.customer.get_profile_image(100,100) %></p>
+  <p>タイトル</p>
+  <span>
+  <%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %>
+  </span>
+  <p>画像</p>
+  <%= image_tag lost_pet.lost_pet_image, size: "200x200" %>
+
+<% end %>
+
+<h1>ギャラリー投稿</h1>
+<%= form_with model: @lost_pet do |f| %>
+<h4>タイトル</h4>
+  <%= f.text_field :title %>
+
+  <h4>本文</h4>
+  <%= f.text_area :body %>
+
+  <h4>画像</h4>
+  <%= f.file_field :lost_pet_image, accept: "image/*" %>
+
+  <%= f.submit '投稿' %>
+<% end %>

@@ -13,19 +13,14 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get '/about' => "homes#about"
-    get '/customers/mypage' => 'customers#show'
     get 'customers/check'
-    get '/customers/edit'
     patch 'customers/withdraw'
-    resource :customers, only:  [:update]
+    resources :customers, only:  [:show, :edit, :update]
     get '/genre/search' => 'searches#genre_search'
     resources :articles, only: [:index, :show]
-    get '/galleries/edit'
-    resources :galleries, only: [:index, :show, :update, :destroy, :new, :create]
-    get '/lost_pets/edit'
-    resources :lost_pets, only: [:index, :show, :update, :destroy, :new, :create]
-    get '/foster_parents/edit'
-    resources :foster_parents, only: [:index, :show, :update, :destroy, :new, :create]
+    resources :galleries
+    resources :lost_pets
+    resources :foster_parents
   end
   # 管理者側ルーティング
   namespace :admin do
