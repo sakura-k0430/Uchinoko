@@ -1,13 +1,16 @@
 <h1>編集画面</h1>
 
-<%= form_with model: @gallery do |f| %>
+<%= form_with model: @gallery, url: gallery_path(@gallery.id), method: :patch do |f| %>
 
   <h4>タイトル</h4>
   <%= f.text_field :title %>
-  
+
   <h4>本文</h4>
   <%= f.text_area :body %>
-  
+
+  <h4>画像</h4>
+  <%= f.file_field :gallery_image, accept: "image/*" %>
+
   <%= f.submit '変更内容保存' %>
-  
+
 <% end %>

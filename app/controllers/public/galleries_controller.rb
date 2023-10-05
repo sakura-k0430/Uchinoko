@@ -5,12 +5,14 @@ class Public::GalleriesController < ApplicationController
 
   def create
     gallery = Gallery.new(gallery_params)
+    gallery.customer_id = current_customer.id
     gallery.save
     redirect_to  gallery_path(gallery.id)
   end
 
   def index
     @galleries = Gallery.all
+    @gallery = Gallery.new
   end
 
   def show
@@ -22,20 +24,20 @@ class Public::GalleriesController < ApplicationController
   end
 
   def update
-    gallery = List.find(params[:id])
+    gallery = Gallery.find(params[:id])
     gallery.update(gallery_params)
     redirect_to gallery_path(gallery.id)
   end
 
   def destroy
-    gallery = List.find(params[:id])
+    gallery = Gallery.find(params[:id])
     gallery.destroy
     redirect_to galleries_path
   end
 
   private
   def gallery_params
-    params.require(:gallery).permit(:title, :body, :gallery_image)
+    params.require(:gallery).permit(:customer_id,:title, :body, :gallery_image)
   end
 
 end

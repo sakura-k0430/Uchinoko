@@ -5,11 +5,9 @@
 <p><%= @gallery.body %></p>
 
 <h2>画像</h2>
-<% if @gallery.image.attached? %>
-  <%= image_tag @gallery.image, size: "300x300" %>
-<% else %>
-  <%= image_tag 'no_image', size: "300x300" %>
-<% end %>
+  <%= image_tag @gallery.gallery_image, size: "300x300" %>
+
+<p>投稿日：<%= @gallery.created_at.strftime('%Y/%m/%d') %></p>
 
 <%= link_to "編集", galleries_edit_path(@gallery.id) %>
-<%= link_to "削除", destroy_gallery_path(@gallery.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<%= link_to "削除", gallery_path(@gallery.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
