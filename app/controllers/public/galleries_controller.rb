@@ -17,6 +17,7 @@ class Public::GalleriesController < ApplicationController
 
   def show
     @gallery = Gallery.find(params[:id])
+    @gallery_comment = GalleryComment.new
   end
 
   def edit

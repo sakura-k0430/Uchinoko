@@ -9,6 +9,7 @@
   </span>
   <p>画像</p>
   <%= image_tag gallery.gallery_image, size: "200x200" %>
+  <p><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></p>
 
 <% end %>
 

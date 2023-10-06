@@ -9,6 +9,7 @@
   </span>
   <p>画像</p>
   <%= image_tag lost_pet.lost_pet_image, size: "200x200" %>
+  <p><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></p>
 
 <% end %>
 

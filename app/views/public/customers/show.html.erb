@@ -14,11 +14,12 @@
   <% if @customer == current_customer %>
   <p><%= link_to "プロフィール編集", edit_customer_path(@customer.id) %></p>
   <% end %>
-  
+
   <%= link_to "退会する", customers_check_path, :class => "btn btn-danger ms-3" %>
 </div>
 
-<!-- ユーザーの投稿一覧 -->
+<!-- ユーザーのギャラリー投稿一覧 -->
+<h3><%= @customer.name %>さんのギャラリー投稿一覧</h3>
 <%  @galleries.each do |gallery| %>
 <div>
   <%= link_to gallery_path(gallery.id) do %>
@@ -28,5 +29,36 @@
   <p>タイトル：<%= gallery.title %></p>
   <p>本文：<%= gallery.body %></p>
   <p>ユーザーネーム：<%= gallery.customer.name %></p>
+  <p><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></p>
+</div>
+<% end %>
+
+<!-- ユーザーの迷子掲示板投稿一覧 -->
+<h3><%= @customer.name %>さんの迷子掲示板投稿一覧</h3>
+<%  @lost_pets.each do |lost_pet| %>
+<div>
+  <%= link_to lost_pet_path(lost_pet.id) do %>
+    <%= image_tag lost_pet.lost_pet_image, size: "300x300"%>
+  <% end %>
+  <p>投稿ユーザー画像：<%= image_tag lost_pet.customer.get_profile_image(100,100) %></p>
+  <p>タイトル：<%= lost_pet.title %></p>
+  <p>本文：<%= lost_pet.body %></p>
+  <p>ユーザーネーム：<%= lost_pet.customer.name %></p>
+  <p><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></p>
+</div>
+<% end %>
+
+<!-- ユーザーの里親掲示板投稿一覧 -->
+<h3><%= @customer.name %>さんの里親掲示板投稿一覧</h3>
+<%  @foster_parents.each do |foster_parent| %>
+<div>
+  <%= link_to foster_parent_path(foster_parent.id) do %>
+    <%= image_tag foster_parent.foster_parent_image, size: "300x300"%>
+  <% end %>
+  <p>投稿ユーザー画像：<%= image_tag foster_parent.customer.get_profile_image(100,100) %></p>
+  <p>タイトル：<%= foster_parent.title %></p>
+  <p>本文：<%= foster_parent.body %></p>
+  <p>ユーザーネーム：<%= foster_parent.customer.name %></p>
+  <p><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></p>
 </div>
 <% end %>

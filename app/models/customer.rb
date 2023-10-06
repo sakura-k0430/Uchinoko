@@ -7,6 +7,9 @@ class Customer < ApplicationRecord
   has_many :galleries, dependent: :destroy
   has_many :lost_pets, dependent: :destroy
   has_many :foster_parents, dependent: :destroy
+  has_many :gallery_comments, dependent: :destroy
+  has_many :lost_pet_comments, dependent: :destroy
+  has_many :foster_parent_comments, dependent: :destroy
 
   has_one_attached :profile_image
 

@@ -17,6 +17,7 @@ class Public::FosterParentsController < ApplicationController
 
   def show
     @foster_parent = FosterParent.find(params[:id])
+    @foster_parent_comment = FosterParentComment.new
   end
 
   def edit

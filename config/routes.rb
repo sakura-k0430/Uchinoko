@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
 }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  # 顧客側ルーティング
+  # 会員側ルーティング
   scope module: :public do
     root to: "homes#top"
     get '/about' => "homes#about"
@@ -18,9 +18,15 @@ Rails.application.routes.draw do
     resources :customers, only:  [:show, :edit, :update]
     get '/genre/search' => 'searches#genre_search'
     resources :articles, only: [:index, :show]
-    resources :galleries
-    resources :lost_pets
-    resources :foster_parents
+    resources :galleries do
+      resources :gallery_comments, only: [:create, :destroy]
+    end
+    resources :lost_pets do
+      resources :lost_pet_comments, only: [:create, :destroy]
+    end
+    resources :foster_parents do
+      resources :foster_parent_comments, only: [:create, :destroy]
+    end
   end
   # 管理者側ルーティング
   namespace :admin do

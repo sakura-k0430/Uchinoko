@@ -9,6 +9,7 @@
   </span>
   <p>画像</p>
   <%= image_tag foster_parent.foster_parent_image, size: "200x200" %>
+  <p><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></p>
 
 <% end %>
 

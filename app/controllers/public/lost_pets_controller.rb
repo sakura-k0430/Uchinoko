@@ -17,6 +17,7 @@ class Public::LostPetsController < ApplicationController
 
   def show
     @lost_pet = LostPet.find(params[:id])
+    @lost_pet_comment = LostPetComment.new
   end
 
   def edit

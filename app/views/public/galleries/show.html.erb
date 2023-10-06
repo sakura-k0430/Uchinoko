@@ -13,5 +13,25 @@
 
 <p>投稿日：<%= @gallery.created_at.strftime('%Y/%m/%d') %></p>
 
+<div>
+  <p>コメント件数：<%= @gallery.gallery_comments.count %></p>
+  <% @gallery.gallery_comments.each do |gallery_comment| %>
+    <p><%= image_tag gallery_comment.customer.get_profile_image(100,100) %></p>
+    <%= gallery_comment.customer.name %>
+    <%= gallery_comment.created_at.strftime('%Y/%m/%d') %><%= gallery_comment.comment %>
+    <% if gallery_comment.customer == current_customer %>
+      <%= link_to "削除", gallery_gallery_comment_path(gallery_comment.gallery, gallery_comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@gallery, @gallery_comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>
+
+<% if @gallery.customer == current_customer %>
 <%= link_to "編集", edit_gallery_path(@gallery.id) %>
 <%= link_to "削除", gallery_path(@gallery.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<% end %>
