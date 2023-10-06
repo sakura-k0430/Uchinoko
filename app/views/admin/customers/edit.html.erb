@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <h2 class="mb-4"><%= @customer.name %>さんの会員情報編集</h2>
+
+  <%= form_with model: @customer, url: admin_customer_path(@customer), method: :patch, local: true do |f| %>
+    <% render "public/shared/error_messages", resource: @customer %>
+
+     <div class="row">
+          <label class="col-lg-3">ニックネーム</label>
+          <div class="col-lg-3">
+            <%= f.text_field :name,autoforcus: true, autocomplete: "name",  placeholder: "ニックネーム" %>
+     </div><br>
+
+      <div class="row">
+        <label class="col-lg-3">住んでいる都道府県（任意）</label>
+        <div class="col-lg-3">
+          <%= f.text_field :address,autoforcus: true, autocomplete: "address",  placeholder: "東京都" %>
+        </div>
+      </div><br>
+
+     <div class="row">
+        <label class="col-lg-3">メールアドレス</label>
+        <div class="col-lg-3">
+          <%= f.text_field :email,autoforcus: true, autocomplete: "email",  placeholder: "sample@exanple.com" %>
+        </div>
+      </div><br>
+
+    <div class="form-group row">
+      <!--会員の退会ずみか有効かのステータスラジオボタン-->
+    <%= f.label :is_deleted, '会員ステータス', class: 'col-sm-3 col-form-label' %>
+      <div class="col-sm-9">
+        <div class="custom-control custom-radio custom-control-inline">
+          <%= f.radio_button :is_deleted, false, checked: @customer.is_deleted == false, class: 'custom-control-input', id: 'status-active' %>
+          <%= f.label :is_deleted, '有効', class: 'custom-control-label', for: 'status-active' %>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <%= f.radio_button :is_deleted, true, checked: @customer.is_deleted == true, class: 'custom-control-input', id: 'status-deleted' %>
+          <%= f.label :is_deleted, '退会済み', class: 'custom-control-label', for: 'status-deleted' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-9"><%= f.submit "変更を保存", class: "btn btn-success" %></div>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
