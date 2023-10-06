@@ -35,3 +35,18 @@
 <%= link_to "編集", edit_gallery_path(@gallery.id) %>
 <%= link_to "削除", gallery_path(@gallery.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
 <% end %>
+
+<!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
+<% if @gallery.favorited_by?(current_customer) %>
+    <p>
+      <%= link_to gallery_favorites_path(@gallery), method: :delete do %>
+        ♥<%= @gallery.gallery_favorites.count %> お気に入り
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to gallery_favorites_path(@gallery), method: :post do %>
+        ♡<%= @gallery.gallery_favorites.count %>  お気に入り
+      <% end %>
+    </p>
+<% end %>

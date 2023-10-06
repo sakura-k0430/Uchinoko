@@ -19,12 +19,18 @@ Rails.application.routes.draw do
     get '/genre/search' => 'searches#genre_search'
     resources :articles, only: [:index, :show]
     resources :galleries do
+      # idを含ませないresourceでルーティング作成（いいねを一人一回までとするため）
+      resource :gallery_favorites, only: [:create, :destroy]
       resources :gallery_comments, only: [:create, :destroy]
     end
     resources :lost_pets do
+       # idを含ませないresourceでルーティング作成（いいねを一人一回までとするため）
+      resource :lost_pet_favorites, only: [:create, :destroy]
       resources :lost_pet_comments, only: [:create, :destroy]
     end
     resources :foster_parents do
+      # idを含ませないresourceでルーティング作成（いいねを一人一回までとするため）
+      resource :foster_parent_favorites, only: [:create, :destroy]
       resources :foster_parent_comments, only: [:create, :destroy]
     end
   end

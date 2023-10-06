@@ -35,3 +35,18 @@
 <%= link_to "編集", edit_lost_pet_path(@lost_pet.id) %>
 <%= link_to "削除", lost_pet_path(@lost_pet.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
 <% end %>
+
+<!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
+<% if @lost_pet.lost_pet_favorited_by?(current_customer) %>
+    <p>
+      <%= link_to lost_pet_favorites_path(@lost_pet), method: :delete do %>
+        ♥<%= @lost_pet.lost_pet_favorites.count %> お気に入り
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to lost_pet_favorites_path(@lost_pet), method: :post do %>
+        ♡<%= @lost_pet.lost_pet_favorites.count %>  お気に入り
+      <% end %>
+    </p>
+<% end %>

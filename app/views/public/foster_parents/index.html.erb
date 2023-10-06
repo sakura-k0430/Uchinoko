@@ -1,7 +1,7 @@
 <h1>里親掲示板一覧</h1>
 
 <% @foster_parents.each do |foster_parent| %>
-  <p>ユーザーネーム：<%= foster_parent.customer.name %></p>
+  <p>ユーザーネーム：<%= link_to foster_parent.customer.name, customer_path(foster_parent.customer.id) %></p>
   <p>投稿ユーザー画像：<%= image_tag foster_parent.customer.get_profile_image(100,100) %></p>
   <p>タイトル</p>
   <span>
@@ -13,7 +13,7 @@
 
 <% end %>
 
-<h1>ギャラリー投稿</h1>
+<h1>里親掲示板投稿</h1>
 <%= form_with model: @foster_parent do |f| %>
 <h4>タイトル</h4>
   <%= f.text_field :title %>

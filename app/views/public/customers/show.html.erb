@@ -1,4 +1,8 @@
-<h2>マイページ</h2>
+<% if @customer == current_customer %>
+<h2>マイプロフィール</h2>
+<% else %>
+<h2>ユーザープロフィール</h2>
+<% end %>
 <!-- ユーザーの詳細 -->
 <div>
   <h3>
@@ -13,9 +17,8 @@
 <!--ログインしているユーザー本人であれば編集を表示-->
   <% if @customer == current_customer %>
   <p><%= link_to "プロフィール編集", edit_customer_path(@customer.id) %></p>
-  <% end %>
-
   <%= link_to "退会する", customers_check_path, :class => "btn btn-danger ms-3" %>
+  <% end %>
 </div>
 
 <!-- ユーザーのギャラリー投稿一覧 -->

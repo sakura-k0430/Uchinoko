@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_06_074420) do
+ActiveRecord::Schema.define(version: 2023_10_06_090032) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -83,6 +83,13 @@ ActiveRecord::Schema.define(version: 2023_10_06_074420) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "foster_parent_favorites", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "foster_parent_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "foster_parents", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.string "title", null: false
@@ -101,6 +108,13 @@ ActiveRecord::Schema.define(version: 2023_10_06_074420) do
 
   create_table "gallery_comments", force: :cascade do |t|
     t.text "comment"
+    t.integer "customer_id"
+    t.integer "gallery_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "gallery_favorites", force: :cascade do |t|
     t.integer "customer_id"
     t.integer "gallery_id"
     t.datetime "created_at", precision: 6, null: false
@@ -131,6 +145,13 @@ ActiveRecord::Schema.define(version: 2023_10_06_074420) do
 
   create_table "lost_pet_comments", force: :cascade do |t|
     t.text "comment"
+    t.integer "customer_id"
+    t.integer "lost_pet_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "lost_pet_favorites", force: :cascade do |t|
     t.integer "customer_id"
     t.integer "lost_pet_id"
     t.datetime "created_at", precision: 6, null: false
