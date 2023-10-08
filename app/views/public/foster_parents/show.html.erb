@@ -37,15 +37,15 @@
 <% end %>
 
 <!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
-<% if @foster_parent.foster_parent_favorited_by?(current_customer) %>
+<% if @foster_parent.favorited_by?(current_customer) %>
     <p>
-      <%= link_to foster_parent_favorites_path(@foster_parent), method: :delete do %>
+      <%= link_to foster_parent_foster_parent_favorites_path(@foster_parent), method: :delete do %>
         ♥<%= @foster_parent.foster_parent_favorites.count %> お気に入り
       <% end %>
     </p>
     <% else %>
     <p>
-      <%= link_to foster_parent_favorites_path(@foster_parent), method: :post do %>
+      <%= link_to foster_parent_foster_parent_favorites_path(@foster_parent), method: :post do %>
         ♡<%= @foster_parent.foster_parent_favorites.count %>  お気に入り
       <% end %>
     </p>
