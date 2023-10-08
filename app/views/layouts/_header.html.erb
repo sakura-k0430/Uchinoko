@@ -10,61 +10,73 @@
         <% if customer_signed_in? %>
           <li>
             <%= link_to customer_path(current_customer.id), class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-home" style="color: #ffffff;"></i>
               マイページ
             <% end %>
           </li>
         <!--ギャラリー投稿一覧リンク-->
           <li>
             <%=  link_to galleries_path,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-camera-retro" style="color: #ffffff;"></i>
               ギャラリー
             <% end %>
           </li>
         <!--迷子の掲示板一覧リンク-->
           <li>
             <%=  link_to lost_pets_path,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-shoe-prints" style="color: #ffffff;"></i>
               迷子掲示板
             <% end %>
           </li>
         <!--里親募集掲示板一覧のリンク-->
           <li>
             <%=  link_to foster_parents_path,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-shield-dog" style="color: #ffffff;"></i>
               里親掲示板
             <% end %>
           </li>
+        <!--管理者投稿の記事一覧リンク-->
            <li>
             <%=  link_to articles_path,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-newspaper" style="color: #ffffff;"></i>
               コラム
             <% end %>
           </li>
         <!--ログアウト-->
           <li>
             <%= link_to destroy_customer_session_path, method: :delete,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i>
               ログアウト
             <% end %>
           </li>
         <% elsif admin_signed_in? %>
           <li>
             <%= link_to admin_customers_path,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-users" style="color: #ffffff;"></i>
               会員一覧
             <% end %>
           </li>
           <li>
             <%= link_to admin_articles_path,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-newspaper" style="color: #ffffff;"></i>
               コラム一覧/登録
             <% end %>
           </li>
           <li>
             <%= link_to admin_articles_path,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-hospital" style="color: #ffffff;"></i>
               病院一覧/登録
             <% end %>
           </li>
           <li>
             <%= link_to admin_genres_path,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-hospital-user" style="color: #ffffff;"></i>
              病院ジャンル一覧/登録
             <% end %>
           </li>
           <li>
             <%= link_to destroy_admin_session_path, method: :delete,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i>
              ログアウト
             <% end %>
           </li>
@@ -73,28 +85,26 @@
         <!--アバウトページ-->
           <li>
             <%= link_to about_path,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-handshake-simple" style="color: #ffffff;"></i>
               About
             <% end %>
           </li>
         <!--新規登録-->
           <li>
             <%=  link_to new_customer_registration_path ,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-user" style="color: #ffffff;"></i>
               新規登録
             <% end %>
           </li>
         <!--ログインページ-->
           <li>
             <%= link_to new_customer_session_path, method: :get,class: 'nav-link text-light' do %>
+            <i class="fa-solid fa-right-to-bracket" style="color: #ffffff;"></i>
               ログイン
             <% end %>
           </li>
         <% end %>
         </ul>
-            <div class= "d-flex align-items-end">
-            <%= form_with local: true, method: :get do |f| %>
-              <%= f.text_field :word,placeholder: "Search" %>
-            <% end %>
-          </div>
     </div>
   </nav>
 </header>

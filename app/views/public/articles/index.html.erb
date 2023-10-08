@@ -1,0 +1,11 @@
+<h1>コラム一覧</h1>
+
+<% @articles.each do |article| %>
+  <p>タイトル</p>
+  <span>
+  <%= link_to article.title, admin_article_path(article.id) %>
+  </span>
+  <p>画像</p>
+  <%= image_tag article.article_image, size: "200x200" %>
+
+<% end %>

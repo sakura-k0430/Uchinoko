@@ -14,7 +14,7 @@
     <%= @customer.address %>
   </h3>
   <%= image_tag @customer.get_profile_image(100,100) %>
-<!--ログインしているユーザー本人であれば編集を表示-->
+<!--ログインしているユーザー本人であれば編集と退会を表示-->
   <% if @customer == current_customer %>
   <p><%= link_to "プロフィール編集", edit_customer_path(@customer.id) %></p>
   <%= link_to "退会する", customers_check_path, :class => "btn btn-danger ms-3" %>
@@ -28,10 +28,7 @@
   <%= link_to gallery_path(gallery.id) do %>
     <%= image_tag gallery.gallery_image, size: "300x300"%>
   <% end %>
-  <p>投稿ユーザー画像：<%= image_tag gallery.customer.get_profile_image(100,100) %></p>
-  <p>タイトル：<%= gallery.title %></p>
-  <p>本文：<%= gallery.body %></p>
-  <p>ユーザーネーム：<%= gallery.customer.name %></p>
+ <p>タイトル：<%= link_to gallery.title, gallery_path(gallery.id) %></p>
   <p><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></p>
 </div>
 <% end %>
@@ -43,10 +40,7 @@
   <%= link_to lost_pet_path(lost_pet.id) do %>
     <%= image_tag lost_pet.lost_pet_image, size: "300x300"%>
   <% end %>
-  <p>投稿ユーザー画像：<%= image_tag lost_pet.customer.get_profile_image(100,100) %></p>
-  <p>タイトル：<%= lost_pet.title %></p>
-  <p>本文：<%= lost_pet.body %></p>
-  <p>ユーザーネーム：<%= lost_pet.customer.name %></p>
+  <p>タイトル：<%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %></p>
   <p><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></p>
 </div>
 <% end %>
@@ -58,10 +52,7 @@
   <%= link_to foster_parent_path(foster_parent.id) do %>
     <%= image_tag foster_parent.foster_parent_image, size: "300x300"%>
   <% end %>
-  <p>投稿ユーザー画像：<%= image_tag foster_parent.customer.get_profile_image(100,100) %></p>
-  <p>タイトル：<%= foster_parent.title %></p>
-  <p>本文：<%= foster_parent.body %></p>
-  <p>ユーザーネーム：<%= foster_parent.customer.name %></p>
+  <p>タイトル：<%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></p>
   <p><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></p>
 </div>
 <% end %>

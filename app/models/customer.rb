@@ -14,6 +14,7 @@ class Customer < ApplicationRecord
   has_many :lost_pet_favorites, dependent: :destroy
   has_many :foster_parent_favorites, dependent: :destroy
 
+  # プロフィール画像の表示のための定義
   has_one_attached :profile_image
 
   def get_profile_image(width, height)
@@ -27,6 +28,21 @@ class Customer < ApplicationRecord
   # ログイン時に退会済みのユーザーが同じアカウントでログイン出来ないようにする
   def active_for_authentication?
     super && (is_deleted == false)
+  end
+
+  # 検索方法分岐
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @customer = Customer.where("name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      @customer = Customer.where("name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @customer = Customer.where("name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @customer = Customer.where("name LIKE?","%#{word}%")
+    else
+      @customer = Customer.all
+    end
   end
 
 end

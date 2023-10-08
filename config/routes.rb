@@ -9,6 +9,15 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
 }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+   # 管理者側ルーティング
+  namespace :admin do
+    get '/' => 'customers#index'
+    get '/articles/edit'
+    resources :articles
+    resources :hospitals
+    resources :genres, only: [:edit, :update, :index, :create]
+    resources :customers, only: [:edit, :update, :index, :show]
+  end
   # 会員側ルーティング
   scope module: :public do
     root to: "homes#top"
@@ -16,6 +25,7 @@ Rails.application.routes.draw do
     get 'customers/check'
     patch 'customers/withdraw'
     resources :customers, only:  [:show, :edit, :update]
+    get '/search' => 'searches#search'
     get '/genre/search' => 'searches#genre_search'
     resources :articles, only: [:index, :show]
     resources :galleries do
@@ -33,14 +43,5 @@ Rails.application.routes.draw do
       resource :foster_parent_favorites, only: [:create, :destroy]
       resources :foster_parent_comments, only: [:create, :destroy]
     end
-  end
-  # 管理者側ルーティング
-  namespace :admin do
-    get '/' => 'customers#index'
-    get '/articles/edit'
-    resources :articles, only: [:index, :show, :update, :destroy, :new, :create]
-    resources :hospitals
-    resources :genres, only: [:edit, :update, :index, :create]
-    resources :customers, only: [:edit, :update, :index, :show]
   end
 end
