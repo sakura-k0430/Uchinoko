@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :public do
+    get 'relationships/followings'
+    get 'relationships/followers'
+  end
   # 顧客用ログイン
   devise_for :customers,skip: [:passwords], controllers: {
   registrations: "public/registrations",
@@ -8,6 +12,11 @@ Rails.application.routes.draw do
  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
+
+  devise_scope :customer do
+    post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
    # 管理者側ルーティング
   namespace :admin do
@@ -22,11 +31,19 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get '/about' => "homes#about"
-    get 'customers/check'
-    patch 'customers/withdraw'
-    resources :customers, only:  [:show, :edit, :update]
     get '/search' => 'searches#search'
     get '/genre/search' => 'searches#genre_search'
+    get 'customers/check'
+    patch 'customers/withdraw'
+    resources :customers, only:  [:show, :edit, :update] do
+      resource :relationships, only: [:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
+      # お気に入り一覧にidが必要なためmemberを使用
+      member do
+        get :favorites
+      end
+    end
     resources :articles, only: [:index, :show]
     resources :galleries do
       # idを含ませないresourceでルーティング作成（いいねを一人一回までとするため）

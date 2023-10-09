@@ -13,7 +13,22 @@
     住んでいる都道府県
     <%= @customer.address %>
   </h3>
-  <%= image_tag @customer.get_profile_image(100,100) %>
+    <%= image_tag @customer.get_profile_image(100,100) %>
+    <%= link_to "いいねした投稿", favorites_customer_path(@customer) %>
+
+    <% if current_customer.following?(@customer) %>
+    <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete %>
+    <% else %>
+    <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post %>
+    <% end %>
+
+  <div>
+    <%= link_to "フォロー一覧", customer_followings_path(@customer.id) %>
+  </div>
+  <div>
+    <%= link_to "フォロワー一覧", customer_followers_path(@customer.id) %>
+  </div>
+
 <!--ログインしているユーザー本人であれば編集と退会を表示-->
   <% if @customer == current_customer %>
   <p><%= link_to "プロフィール編集", edit_customer_path(@customer.id) %></p>
@@ -23,6 +38,7 @@
 
 <!-- ユーザーのギャラリー投稿一覧 -->
 <h3><%= @customer.name %>さんのギャラリー投稿一覧</h3>
+<% if @galleries.exists? %>
 <%  @galleries.each do |gallery| %>
 <div>
   <%= link_to gallery_path(gallery.id) do %>
@@ -32,9 +48,13 @@
   <p><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></p>
 </div>
 <% end %>
+<% else %>
+  <p>投稿はありません</p>
+<% end %>
 
 <!-- ユーザーの迷子掲示板投稿一覧 -->
 <h3><%= @customer.name %>さんの迷子掲示板投稿一覧</h3>
+<% if @lost_pets.exists? %>
 <%  @lost_pets.each do |lost_pet| %>
 <div>
   <%= link_to lost_pet_path(lost_pet.id) do %>
@@ -44,9 +64,13 @@
   <p><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></p>
 </div>
 <% end %>
+<% else %>
+  <p>投稿はありません</p>
+<% end %>
 
 <!-- ユーザーの里親掲示板投稿一覧 -->
 <h3><%= @customer.name %>さんの里親掲示板投稿一覧</h3>
+<% if @foster_parents.exists? %>
 <%  @foster_parents.each do |foster_parent| %>
 <div>
   <%= link_to foster_parent_path(foster_parent.id) do %>
@@ -55,4 +79,7 @@
   <p>タイトル：<%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></p>
   <p><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></p>
 </div>
+<% end %>
+<% else %>
+  <p>投稿はありません</p>
 <% end %>

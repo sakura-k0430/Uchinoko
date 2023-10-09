@@ -19,6 +19,13 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  # ゲストログイン用
+  def guest_sign_in
+    customer = Customer.guest
+    sign_in customer
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
   protected
   # 退会しているかを判断するメソッド
   def customer_state
@@ -28,11 +35,11 @@ class Public::SessionsController < Devise::SessionsController
     return if !@customer
     # 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別&&Customerモデルに記述した、active_for_authentication?メソッドがfalseであるか判断
     if (@customer.valid_password?(params[:customer][:password]) && (@customer.is_deleted == true))
-      flash[:notice] = "退会済みです。再度ご登録をしてご利用ください"
+      flash[:notice] = "退会済みです。再度新規登録をしてご利用ください"
       redirect_to new_customer_registration_path
     end
   end
-  
+
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])

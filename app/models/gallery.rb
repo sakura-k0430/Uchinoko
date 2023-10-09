@@ -4,6 +4,7 @@ class Gallery < ApplicationRecord
   has_many :gallery_comments, dependent: :destroy
   has_many :gallery_favorites, dependent: :destroy
 
+  # 引数で渡されたユーザidがgallery_favoritesテーブル内に存在（exists?）するか確認
   def favorited_by?(customer)
     gallery_favorites.exists?(customer_id: customer.id)
   end
