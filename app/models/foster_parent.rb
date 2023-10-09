@@ -11,13 +11,13 @@ class FosterParent < ApplicationRecord
 # 検索方法分岐
   def self.looks(search, word)
     if search == "perfect_match"
-      @foster_parent = FosterParent.where("title LIKE?","#{word}")
+      @foster_parent = FosterParent.where("title LIKE? OR body LIKE?","#{word}","#{word}")
     elsif search == "forward_match"
-      @foster_parent = FosterParent.where("title LIKE?","#{word}%")
+      @foster_parent = FosterParent.where("title LIKE? OR body LIKE?","#{word}%","#{word}%")
     elsif search == "backward_match"
-      @foster_parent = FosterParent.where("title LIKE?","%#{word}")
+      @foster_parent = FosterParent.where("title LIKE? OR body LIKE?","%#{word}","%#{word}")
     elsif search == "partial_match"
-      @foster_parent = FosterParent.where("title LIKE?","%#{word}%")
+      @foster_parent = FosterParent.where("title LIKE? OR body LIKE?","%#{word}%","%#{word}%")
     else
       @foster_parent = FosterParent.all
     end

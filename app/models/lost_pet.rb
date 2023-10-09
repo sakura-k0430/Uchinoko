@@ -11,16 +11,16 @@ class LostPet < ApplicationRecord
 # 検索方法分岐
   def self.looks(search, word)
     if search == "perfect_match"
-      @lost_pet = LostPet.where("title LIKE?","#{word}")
+      @lost_pet = LostPet.where("title LIKE? OR body LIKE?","#{word}","#{word}")
     elsif search == "forward_match"
-      @lost_pet = LostPet.where("title LIKE?","#{word}%")
+      @lost_pet = LostPet.where("title LIKE? OR body LIKE?","#{word}%","#{word}%")
     elsif search == "backward_match"
-      @lost_pet = LostPet.where("title LIKE?","%#{word}")
+      @lost_pet = LostPet.where("title LIKE? OR body LIKE?","%#{word}","%#{word}")
     elsif search == "partial_match"
-      @lost_pet = LostPet.where("title LIKE?","%#{word}%")
+      @lost_pet = LostPet.where("title LIKE? OR body LIKE?","%#{word}%","%#{word}%")
     else
       @lost_pet = LostPet.all
     end
   end
-  
+
 end
