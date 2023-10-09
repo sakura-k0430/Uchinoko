@@ -3,21 +3,25 @@ class Gallery < ApplicationRecord
   belongs_to :customer
   has_many :gallery_comments, dependent: :destroy
   has_many :gallery_favorites, dependent: :destroy
-  
+
   def favorited_by?(customer)
     gallery_favorites.exists?(customer_id: customer.id)
   end
-  
+
   # 検索方法分岐
   def self.looks(search, word)
+    # 完全一致
     if search == "perfect_match"
-      @gallery = Gallery.where("title LIKE?","#{word}")
+      @gallery = Gallery.where("title LIKE? OR body LIKE?","#{word}","#{word}")
+    # 前方一致
     elsif search == "forward_match"
-      @gallery = Gallery.where("title LIKE?","#{word}%")
+      @gallery = Gallery.where("title LIKE? OR body LIKE?","#{word}%","#{word}%")
+    # 後方一致
     elsif search == "backward_match"
-      @gallery = Gallery.where("title LIKE?","%#{word}")
+      @gallery = Gallery.where("title LIKE? OR body LIKE?","%#{word}","%#{word}")
+    # 部分一致
     elsif search == "partial_match"
-      @gallery = Gallery.where("title LIKE?","%#{word}%")
+      @gallery = Gallery.where("title LIKE? OR body LIKE?","%#{word}%","%#{word}%")
     else
       @gallery = Gallery.all
     end

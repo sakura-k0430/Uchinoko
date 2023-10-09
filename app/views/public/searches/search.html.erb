@@ -4,39 +4,76 @@
   <!--検索対象モデルがcustomerの時 -->
   <% if @range == "Customer" %>
     <tbody>
+    <tr>
+      <th>ユーザーアイコン</th>
+      <th>ユーザー名</th>
+    </tr>
+    </tbody>
+    <tbody>
       <% @customers.each do |customer| %>
         <tr>
-          <td><%= customer.name %></td>
+          <td><%= image_tag customer.get_profile_image(100,100) %></td>
+          <td><%= link_to customer.name, customer_path(customer.id) %></td>
         </tr>
       <% end %>
     </tbody>
   <% elsif @range == "Gallery" %>
     <!--検索対象モデルがCustomerではない時(= 検索対象モデルがGalleryの時) -->
     <tbody>
+    <tr>
+      <th>投稿タイトル</th>
+      <th>投稿本文</th>
+      <th>ユーザーアイコン</th>
+      <th>ユーザー名</th>
+    </tr>
+    </tbody>
+    <tbody>
       <% @galleries.each do |gallery| %>
         <tr>
-          <td><%= gallery.title %></td>
-          <td><%= gallery.body %></td>
+          <td><%= link_to gallery.title, gallery_path(gallery.id) %></td>
+          <td><%= link_to gallery.body, gallery_path(gallery.id) %></td>
+          <td><%= image_tag gallery.customer.get_profile_image(100,100) %></td>
+          <td><%= link_to gallery.customer.name, customer_path(gallery.customer.id) %></td>
         </tr>
       <% end %>
     </tbody>
   <% elsif @range == "LostPet" %>
     <!--検索対象モデルがCustomerとGalleryではない時(= 検索対象モデルがLostPetの時) -->
     <tbody>
+    <tr>
+      <th>投稿タイトル</th>
+      <th>投稿本文</th>
+      <th>ユーザーアイコン</th>
+      <th>ユーザー名</th>
+    </tr>
+    </tbody>
+    <tbody>
       <% @lost_pets.each do |lost_pet| %>
         <tr>
-          <td><%= lost_pet.title %></td>
-          <td><%= lost_pet.body %></td>
+          <td><%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %></td>
+          <td><%= link_to lost_pet.body, lost_pet_path(lost_pet.id) %></td>
+          <td><%= image_tag lost_pet.customer.get_profile_image(100,100) %></td>
+          <td><%= link_to lost_pet.customer.name, customer_path(lost_pet.customer.id) %></td>
         </tr>
       <% end %>
     </tbody>
   <% else %>
     <!--検索対象モデルがCustomerとGalleryとLostPetではない時(= 検索対象モデルがFosterParentの時) -->
     <tbody>
+    <tr>
+      <th>投稿タイトル</th>
+      <th>投稿本文</th>
+      <th>ユーザーアイコン</th>
+      <th>ユーザー名</th>
+    </tr>
+    </tbody>
+    <tbody>
       <% @foster_parents.each do |foster_parent| %>
         <tr>
-          <td><%= foster_parent.title %></td>
-          <td><%= foster_parent.body %></td>
+          <td><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></td>
+          <td><%= link_to foster_parent.body, foster_parent_path(foster_parent.id) %></td>
+          <td><%= image_tag foster_parent.customer.get_profile_image(100,100) %></td>
+          <td><%= link_to foster_parent.customer.name, customer_path(foster_parent.customer.id) %></td>
         </tr>
       <% end %>
     </tbody>
