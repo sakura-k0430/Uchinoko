@@ -46,6 +46,12 @@ class Public::CustomersController < ApplicationController
     @favorite_foster_parents = FosterParent.find(foster_parent_favorites)
     @foster_parent = FosterParent.find(params[:id])
   end
+  
+  def followings_post
+    @gallery_posts = Gallery.where(customer_id: [current_customer.id, *current_customer.following_ids])
+    @lost_pet_posts = LostPet.where(customer_id: [current_customer.id, *current_customer.following_ids])
+    @foster_parent_posts = FosterParent.where(customer_id: [current_customer.id, *current_customer.following_ids])
+  end
 
 
   private

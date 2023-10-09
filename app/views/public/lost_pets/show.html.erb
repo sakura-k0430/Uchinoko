@@ -1,7 +1,5 @@
 <h2>迷子の掲示板詳細</h2>
 
-<p>ユーザーネーム：<%= @lost_pet.customer.name %></p>
-<p>投稿ユーザー画像：<%= image_tag @lost_pet.customer.get_profile_image(100,100) %></p>
 <h2>タイトル</h2>
 <p><%= @lost_pet.title %></p>
 
@@ -12,6 +10,8 @@
   <%= image_tag @lost_pet.lost_pet_image, size: "300x300" %>
 
 <p>投稿日：<%= @lost_pet.created_at.strftime('%Y/%m/%d') %></p>
+<p>Uchinoko name：<%= link_to @lost_pet.customer.name, customer_path(@lost_pet.customer.id) %></p>
+<p><%= image_tag @lost_pet.customer.get_profile_image(100,100) %></p>
 
 <div>
   <p>コメント件数：<%= @lost_pet.lost_pet_comments.count %></p>

@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     get '/about' => "homes#about"
     get '/search' => 'searches#search'
     get '/genre/search' => 'searches#genre_search'
+    get 'customers/followings_post'
     get 'customers/check'
     patch 'customers/withdraw'
     resources :customers, only:  [:show, :edit, :update] do
