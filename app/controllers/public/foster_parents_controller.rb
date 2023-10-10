@@ -4,15 +4,17 @@ class Public::FosterParentsController < ApplicationController
   end
 
   def create
-    foster_parent = FosterParent.new(foster_parent_params)
-    foster_parent.customer_id = current_customer.id
-    foster_parent.save
-    redirect_to  foster_parent_path(foster_parent.id)
+    @foster_parent = FosterParent.new(foster_parent_params)
+    @foster_parent.customer_id = current_customer.id
+    if @foster_parent.save
+      redirect_to  foster_parent_path(@foster_parent.id)
+    else
+      render :new
+    end
   end
 
   def index
-    @foster_parents = FosterParent.all
-    @foster_parent = FosterParent.new
+    @foster_parents = FosterParent.all.order(created_at: :desc)
   end
 
   def show

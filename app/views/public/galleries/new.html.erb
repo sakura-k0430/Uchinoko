@@ -1,3 +1,12 @@
+<% if @gallery.errors.any? %>
+  <%= @gallery.errors.count %>errors prohibited this obj from being saved:
+  <ul>
+    <% @gallery.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <h1>ギャラリー投稿</h1>
 <%= form_with model: @gallery do |f| %>
 <h4>タイトル</h4>

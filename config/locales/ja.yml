@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    attributes:
+      customer:
+        name: ニックネーム
+        email: Eメール
+      gallery:
+        title: タイトル
+        body: 本文
+        gallery_image: 画像

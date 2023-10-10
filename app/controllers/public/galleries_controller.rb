@@ -4,15 +4,17 @@ class Public::GalleriesController < ApplicationController
   end
 
   def create
-    gallery = Gallery.new(gallery_params)
-    gallery.customer_id = current_customer.id
-    gallery.save
-    redirect_to  gallery_path(gallery.id)
+    @gallery = Gallery.new(gallery_params)
+    @gallery.customer_id = current_customer.id
+    if @gallery.save
+      redirect_to gallery_path(@gallery.id)
+    else
+      render :new
+    end
   end
 
   def index
-    @galleries = Gallery.all
-    @gallery = Gallery.new
+    @galleries = Gallery.all.order(created_at: :desc)
   end
 
   def show

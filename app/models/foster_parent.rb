@@ -3,6 +3,9 @@ class FosterParent < ApplicationRecord
   belongs_to :customer
   has_many :foster_parent_comments, dependent: :destroy
   has_many :foster_parent_favorites, dependent: :destroy
+  validates :title, presence: true
+  validates :body, presence: true
+  validates :foster_parent_image, presence: true
 
   # 引数で渡されたユーザidがfoster_parent_favoritesテーブル内に存在（exists?）するか確認
   def favorited_by?(customer)

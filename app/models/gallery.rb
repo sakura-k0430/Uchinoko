@@ -3,6 +3,9 @@ class Gallery < ApplicationRecord
   belongs_to :customer
   has_many :gallery_comments, dependent: :destroy
   has_many :gallery_favorites, dependent: :destroy
+  validates :title, presence: true
+  validates :body, presence: true
+  validates :gallery_image, presence: true
 
   # 引数で渡されたユーザidがgallery_favoritesテーブル内に存在（exists?）するか確認
   def favorited_by?(customer)

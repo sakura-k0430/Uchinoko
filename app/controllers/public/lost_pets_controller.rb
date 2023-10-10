@@ -4,14 +4,17 @@ class Public::LostPetsController < ApplicationController
   end
 
   def create
-    lost_pet = LostPet.new(lost_pet_params)
-    lost_pet.customer_id = current_customer.id
-    lost_pet.save
-    redirect_to  lost_pet_path(lost_pet.id)
+    @lost_pet = LostPet.new(lost_pet_params)
+    @lost_pet.customer_id = current_customer.id
+    if @lost_pet.save
+      redirect_to  lost_pet_path(@lost_pet.id)
+    else
+      render :new
+    end
   end
 
   def index
-    @lost_pets = LostPet.all
+    @lost_pets = LostPet.all.order(created_at: :desc)
     @lost_pet = LostPet.new
   end
 

@@ -46,13 +46,13 @@ class Public::CustomersController < ApplicationController
     @favorite_foster_parents = FosterParent.find(foster_parent_favorites)
     @foster_parent = FosterParent.find(params[:id])
   end
-  
-  def followings_post
-    @gallery_posts = Gallery.where(customer_id: [current_customer.id, *current_customer.following_ids])
-    @lost_pet_posts = LostPet.where(customer_id: [current_customer.id, *current_customer.following_ids])
-    @foster_parent_posts = FosterParent.where(customer_id: [current_customer.id, *current_customer.following_ids])
-  end
 
+  # 自身の投稿とフォローしている人の全ての投稿(タイムライン表示)
+  def followings_post
+    @gallery_posts = Gallery.where(customer_id: [current_customer.id, *current_customer.following_ids]).order(created_at: :desc)
+    @lost_pet_posts = LostPet.where(customer_id: [current_customer.id, *current_customer.following_ids]).order(created_at: :desc)
+    @foster_parent_posts = FosterParent.where(customer_id: [current_customer.id, *current_customer.following_ids]).order(created_at: :desc)
+  end
 
   private
 

@@ -1,3 +1,5 @@
+<%= link_to "ギャラリー投稿する", new_gallery_path %>
+
 <h1>ギャラリー一覧</h1>
 
 <% @galleries.each do |gallery| %>
@@ -11,18 +13,4 @@
   <%= image_tag gallery.gallery_image, size: "200x200" %>
   <p><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></p>
 
-<% end %>
-
-<h1>ギャラリー投稿</h1>
-<%= form_with model: @gallery do |f| %>
-<h4>タイトル</h4>
-  <%= f.text_field :title %>
-
-  <h4>本文</h4>
-  <%= f.text_area :body %>
-
-  <h4>画像</h4>
-  <%= f.file_field :gallery_image, accept: "image/*" %>
-
-  <%= f.submit '投稿' %>
 <% end %>

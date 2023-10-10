@@ -3,6 +3,9 @@ class LostPet < ApplicationRecord
   belongs_to :customer
   has_many :lost_pet_comments, dependent: :destroy
   has_many :lost_pet_favorites, dependent: :destroy
+  validates :title, presence: true
+  validates :body, presence: true
+  validates :lost_pet_image, presence: true
 
   # 引数で渡されたユーザidがlost_pet_favoritesテーブル内に存在（exists?）するか確認
   def favorited_by?(customer)

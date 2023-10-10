@@ -4,6 +4,6 @@ class Public::ArticlesController < ApplicationController
   end
 
   def show
-    @article = Item.find(params[:id])
+    @article = Article.find(params[:id])
   end
 end

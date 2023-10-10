@@ -4,6 +4,8 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :name, presence: true
+
   has_many :galleries, dependent: :destroy
   has_many :lost_pets, dependent: :destroy
   has_many :foster_parents, dependent: :destroy
