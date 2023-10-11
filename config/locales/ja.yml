@@ -8,3 +8,11 @@ ja:
         title: タイトル
         body: 本文
         gallery_image: 画像
+      lost_pet:
+        title: タイトル
+        body: 本文
+        lost_pet_image: 画像
+      foster_parent:
+        title: タイトル
+        body: 本文
+        foster_parent_image: 画像
