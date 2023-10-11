@@ -39,13 +39,14 @@
 <!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
 <% if @gallery.favorited_by?(current_customer) %>
     <p>
-      <%= link_to gallery_gallery_favorites_path(@gallery), method: :delete do %>
+      <!--remote; trueの追加によりJavaScriptのリクエストがfavoritesコントローラへ送信される data: {"turbolinks" => false}がないとリロードしないといけなくなる-->
+      <%= link_to gallery_gallery_favorites_path(@gallery), method: :delete, remote: true, data: {"turbolinks" => false} do %>
         ♥<%= @gallery.gallery_favorites.count %> お気に入り
       <% end %>
     </p>
     <% else %>
     <p>
-      <%= link_to gallery_gallery_favorites_path(@gallery), method: :post do %>
+      <%= link_to gallery_gallery_favorites_path(@gallery), method: :post, remote: true, data: {"turbolinks" => false} do %>
         ♡<%= @gallery.gallery_favorites.count %>  お気に入り
       <% end %>
     </p>

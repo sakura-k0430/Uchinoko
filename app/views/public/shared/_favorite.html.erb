@@ -1,0 +1,15 @@
+<!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
+<% if hoge.favorited_by?(current_customer) %>
+    <p>
+      <!--remote; trueの追加によりJavaScriptのリクエストがfavoritesコントローラへ送信される data: {"turbolinks" => false}がないとリロードしないといけなくなる-->
+      <%= link_to name_name_favorites_path(hoge), method: :delete, remote: true, data: {"turbolinks" => false} do %>
+        ♥<%= hoge.name_favorites.count %> お気に入り
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to name_name_favorites_path(hoge), method: :post, remote: true, data: {"turbolinks" => false} do %>
+        ♡<%= hoge.name_favorites.count %>  お気に入り
+      <% end %>
+    </p>
+<% end %>

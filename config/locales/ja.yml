@@ -3,7 +3,7 @@ ja:
     attributes:
       customer:
         name: ニックネーム
-        email: Eメール
+        email: メールアドレス
       gallery:
         title: タイトル
         body: 本文

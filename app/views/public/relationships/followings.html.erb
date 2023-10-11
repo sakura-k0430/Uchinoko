@@ -1,14 +1,18 @@
+<%=link_to "グループを作成する",new_group_path %> |
+<%=link_to "グループ一覧",groups_path %>
+<h3>フォロー一覧</h3>
+
 <% if @customers.exists? %>
   <% @customers.each do |customer| %>
     <table>
-      <thead>
+      <tbody>
         <tr>
           <th>ユーザーアイコン</th>
           <th>ユーザー名</th>
           <th></th>
           <th></th>
         </tr>
-      </thead>
+      </tbody>
       <tbody>
         <tr>
           <td><%= image_tag customer.get_profile_image(100,100) %></td>

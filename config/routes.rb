@@ -45,6 +45,11 @@ Rails.application.routes.draw do
         get :favorites
       end
     end
+    resources :groups, only: [:new, :index, :show, :create, :edit, :update] do
+      resource :group_customers, only: [:create, :destroy]
+      get "new/mail" => "groups#new_mail"
+      get "send/mail" => "groups#send_mail"
+    end
     resources :articles, only: [:index, :show]
     resources :galleries do
       # idを含ませないresourceでルーティング作成（いいねを一人一回までとするため）

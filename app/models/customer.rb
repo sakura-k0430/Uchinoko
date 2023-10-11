@@ -21,6 +21,7 @@ class Customer < ApplicationRecord
   # 一覧画面で使う　throughでスルーするテーブル、sourceで参照するカラムを指定
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
+  has_many :group_customers, dependent: :destroy
 
   # プロフィール画像の表示のための定義
   has_one_attached :profile_image

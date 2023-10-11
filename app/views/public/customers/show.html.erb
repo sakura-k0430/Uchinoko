@@ -14,7 +14,7 @@
     <%= @customer.address %>
   </h3>
     <%= image_tag @customer.get_profile_image(100,100) %>
-    <%= link_to "いいねした投稿", favorites_customer_path(@customer) %>
+    <%= link_to "お気に入りした投稿一覧", favorites_customer_path(@customer) %>
 
     <% if current_customer.following?(@customer) %>
     <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete %>
