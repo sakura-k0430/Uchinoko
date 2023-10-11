@@ -45,6 +45,8 @@ Rails.application.routes.draw do
         get :favorites
       end
     end
+    resources :messages, only: [:create]
+    resources :rooms, only: [:create,:show]
     resources :groups, only: [:new, :index, :show, :create, :edit, :update] do
       resource :group_customers, only: [:create, :destroy]
       get "new/mail" => "groups#new_mail"

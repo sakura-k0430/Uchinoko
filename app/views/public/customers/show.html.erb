@@ -22,6 +22,26 @@
     <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post %>
     <% end %>
 
+    <!--以下DM機能の記述-->
+    <!--現在ログインしているユーザーではない-->
+    <% unless @customer.id == current_customer.id %>
+    <!--相互フォロー状態のときの条件式-->
+    <% if (current_customer.following? @customer) && (@customer.following? current_customer)  %>
+    <!--ルームが作成されている時とされていない時の条件分岐-->
+    <% if @isRoom == true %>
+      <p class="customer-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+    <% else %>
+    <!--ルームが作成されていなかった場合作成-->
+    <%= form_for @room do |f| %>
+      <%= fields_for @entry do |e| %>
+        <%= e.hidden_field :customer_id, value: @customer.id %>
+      <% end %>
+      <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg customer-show-chat"%>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+
   <div>
     <%= link_to "フォロー一覧", customer_followings_path(@customer.id) %>
   </div>
