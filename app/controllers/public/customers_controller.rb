@@ -1,10 +1,10 @@
 class Public::CustomersController < ApplicationController
   def show
+    @customer = Customer.find(params[:id])
     @galleries = @customer.galleries
     @lost_pets = @customer.lost_pets
     @foster_parents = @customer.foster_parents
   # 以下DM機能で使用
-    @customer = Customer.find(params[:id])
     # roomがcreateされた時現在ログインしているユーザーと「チャットへ」ボタンを押されたユーザーの両方をEntriesテーブルに記録するため
     @currentCustomerEntry = Entry.where(customer_id: current_customer.id)
     # whereメソッドを使いもう1人のユーザーを探している
@@ -15,7 +15,7 @@ class Public::CustomersController < ApplicationController
       # roomが作成されている場合、Entriesテーブル内にあるroom_idが共通しているユーザー同士に対して
       @currentCustomerEntry.each do |currentcustomer|
         @customerEntry.each do |customer|
-          if currentcustomer.room_id == customer.room_id then
+          if currentcustomer.room_id == customer.room_id
             @isRoom = true
             # すでに作成されているroom_idを特定
             @roomId = currentcustomer.room_id

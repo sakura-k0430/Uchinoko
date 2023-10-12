@@ -25,7 +25,7 @@
     <!--以下DM機能の記述-->
     <!--現在ログインしているユーザーではない-->
     <% unless @customer.id == current_customer.id %>
-    <!--相互フォロー状態のときの条件式-->
+    <!--相互フォロー状態の条件式-->
     <% if (current_customer.following? @customer) && (@customer.following? current_customer)  %>
     <!--ルームが作成されている時とされていない時の条件分岐-->
     <% if @isRoom == true %>
@@ -33,8 +33,9 @@
     <% else %>
     <!--ルームが作成されていなかった場合作成-->
     <%= form_for @room do |f| %>
-      <%= fields_for @entry do |e| %>
-        <%= e.hidden_field :customer_id, value: @customer.id %>
+      <%= fields_for @entry do |entry| %>
+      <!--Entriesテーブルのレコードにはcustomer_idを送る必要があるので、hidden_field-->
+        <%= entry.hidden_field :customer_id, value: @customer.id %>
       <% end %>
       <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg customer-show-chat"%>
     <% end %>
