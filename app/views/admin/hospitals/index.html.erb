@@ -1,0 +1,17 @@
+<%= link_to "病院登録画面へ", new_admin_hospital_path %>
+
+<h1>病院登録一覧</h1>
+
+<% @hospitals.each do |hospital| %>
+  <p>病院名</p>
+  <span>
+  <%= link_to hospital.name, admin_hospital_path(hospital.id) %>
+  </span>
+  <span>
+  <%= hospital.address %>
+  </span>
+
+  <p>画像</p>
+  <%= image_tag hospital.hospital_image, size: "100x100" %>
+
+<% end %>

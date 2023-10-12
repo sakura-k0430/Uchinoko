@@ -1,0 +1,24 @@
+<h2>病院登録詳細</h2>
+
+<h2>病院名</h2>
+<p><%= @hospital.name %></p>
+
+<h2>所在地</h2>
+<p><%= @hospital.address %></p>
+
+<h2>電話番号</h2>
+<p><%= @hospital.phone_number %></p>
+
+<h2>病院説明(特色など)</h2>
+<p><%= @hospital.explanation %></p>
+
+<span>【ジャンル】</span>
+<% @hospital.genres.each do |genre| %>
+  <%= genre.name %>
+<% end %>
+
+<h2>病院イメージ画像</h2>
+  <%= image_tag @hospital.hospital_image, size: "300x300" %>
+
+<%= link_to "編集", edit_admin_hospital_path(@hospital.id) %>
+<%= link_to "削除", admin_hospital_path(@hospital.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>

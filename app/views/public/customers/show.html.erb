@@ -13,6 +13,10 @@
     住んでいる都道府県
     <%= @customer.address %>
   </h3>
+  <h3>
+    自己紹介
+    <%= @customer.introduction %>
+  </h3>
     <%= image_tag @customer.get_profile_image(100,100) %>
     <%= link_to "お気に入りした投稿一覧", favorites_customer_path(@customer) %>
 

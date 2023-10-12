@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get '/articles/edit'
     resources :articles
     resources :hospitals
-    resources :genres, only: [:edit, :update, :index, :create]
+    resources :genres, only: [:edit, :update, :index, :create, :destroy]
     resources :customers, only: [:edit, :update, :index, :show]
   end
   # 会員側ルーティング
