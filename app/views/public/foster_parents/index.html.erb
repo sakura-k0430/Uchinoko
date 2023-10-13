@@ -1,16 +1,32 @@
-<%= link_to "里親掲示板へ投稿する", new_foster_parent_path %>
+<button type="button" class="btn btn-info">
+  <%= link_to "里親掲示板へ投稿する", new_foster_parent_path %>
+</button>
 
-<h1>里親掲示板一覧</h1>
+<h1>
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+    里親掲示板一覧
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+</h1>
 
-<% @foster_parents.each do |foster_parent| %>
-  <p>ユーザーネーム：<%= link_to foster_parent.customer.name, customer_path(foster_parent.customer.id) %></p>
-  <p>投稿ユーザー画像：<%= image_tag foster_parent.customer.get_profile_image(100,100) %></p>
-  <p>タイトル</p>
-  <span>
-  <%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %>
-  </span>
-  <p>画像</p>
-  <%= image_tag foster_parent.foster_parent_image, size: "200x200" %>
-  <p><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></p>
-
-<% end %>
+<div class="card-list-container py-5">
+  <% @foster_parents.each do |foster_parent| %>
+     <div class="card w-50 mx-auto mt-4 shadow-lg">
+       <%= image_tag foster_parent.foster_parent_image, class:"card-img-top"; %>
+         <div class="card-body">
+          <div class="row">
+            <div class="col-2">
+              <%= image_tag foster_parent.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+            </div>
+            <div class="col-10">
+              <p class="card-title">
+                <strong><i class="far fa-flag"></i><span><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></span></strong>
+              </p>
+              <p class="card-text">本文：<%= foster_parent.body %></p>
+              <span><i class="fas fa-user"></i> By<%= link_to foster_parent.customer.name, customer_path(foster_parent.customer.id) %>｜ </span>
+              <span><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

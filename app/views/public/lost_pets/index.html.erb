@@ -1,16 +1,32 @@
-<%= link_to "迷子掲示板へ投稿する", new_lost_pet_path %>
+<button type="button" class="btn btn-info">
+  <%= link_to "迷子掲示板へ投稿する", new_lost_pet_path %>
+</button>
 
-<h1>迷子掲示板一覧</h1>
+<h1>
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+  迷子掲示板一覧
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+</h1>
 
-<% @lost_pets.each do |lost_pet| %>
-  <p>ユーザーネーム：<%= link_to lost_pet.customer.name, customer_path(lost_pet.customer.id) %></p>
-  <p>投稿ユーザー画像：<%= image_tag lost_pet.customer.get_profile_image(100,100) %></p>
-  <p>タイトル</p>
-  <span>
-  <%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %>
-  </span>
-  <p>画像</p>
-  <%= image_tag lost_pet.lost_pet_image, size: "200x200" %>
-  <p><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></p>
-
-<% end %>
+<div class="card-list-container py-5">
+  <% @lost_pets.each do |lost_pet| %>
+    <div class="card w-50 mx-auto mt-4 shadow-lg">
+      <%= image_tag lost_pet.lost_pet_image, class:"card-img-top"; %>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-2">
+              <%= image_tag lost_pet.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+            </div>
+            <div class="col-10">
+              <p class="card-title">
+                <strong><i class="far fa-flag"></i><span><%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %></span></strong>
+              </p>
+              <p class="card-text">本文：<%= lost_pet.body %></p>
+              <span><i class="fas fa-user"></i> By<%= link_to lost_pet.customer.name, customer_path(lost_pet.customer.id) %>｜ </span>
+              <span><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
