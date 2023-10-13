@@ -12,7 +12,7 @@ Rails.application.routes.draw do
  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
-
+  # ゲストログイン
   devise_scope :customer do
     post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
@@ -31,8 +31,8 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get '/about' => "homes#about"
+    get '/hospital/search' => 'hospital_searches#hospital_search'
     get '/search' => 'searches#search'
-    get '/genre/search' => 'searches#genre_search'
     get 'customers/followings_post'
     get 'customers/check'
     patch 'customers/withdraw'

@@ -5,7 +5,13 @@
 body {
   width: 100%;
   height: 100%;
-    .h2,footer {
-      font-family: Chalkduster, "Bradley Hand", Courier, "Segoe Print", sans-serif;
-        }
+    .title {
+      color: #fafad2;
+      background-image: url('Uchinoko_top_image.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100%;
+      maegine: 40px;
+      padding: 5px;
+    }
 }
