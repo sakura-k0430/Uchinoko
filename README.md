@@ -30,6 +30,9 @@
 ​
 ## 設計書
 <!--テーマを設定・提出する時点では不要です-->
+
+## 使用ツール
+著作者：<a href="https://jp.freepik.com/free-photo/beautiful-retro-nature-with-cute-dog-on-field_31589930.htm#page=2&query=%E3%83%9A%E3%83%83%E3%83%88&position=1&from_view=search&track=sph">Freepik</a>
 ​
 ## 開発環境
 - OS：Linux(CentOS)

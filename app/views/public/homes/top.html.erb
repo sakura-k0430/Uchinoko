@@ -1,22 +1,43 @@
 <body>
   <div class="container-fluid">
     <div class = "row px-5">
-
-
-<div class= "title">
-<h3>ようこそ、Uchinokoへ。</h3>
-<p>このサイトは、Uchinokoと暮らす何気ない日常や思い出を共有できるサイトです。</p>
-<p>その他、迷子の子や里親を探す子たちの手助けもしています。</p>
-<p>さまざまなUchinokoたちに関する情報を入手したり、</p>
-<p>かわいいUchinokoを自慢しあったり、</p>
-<p>もっとUchinokoと過ごすことが楽しくなりますように。</p>
-<%= image_tag '/assets/images/Uchinoko_top_image.jpg' %>
-</div>
-
-<div class="btn-wrapper col-10 mx-auto">
-    <a class= "btn btn-info btn-md" <%= link_to "ログイン", new_customer_session_path %></a>
-    <a class= "btn btn-success btn-md" <%= link_to "新規会員登録", new_customer_registration_path %></a>
-    <a class= "btn btn-warning btn-md" <%= link_to "ゲストログイン", customers_guest_sign_in_path %></a>
-</div>
-</div>
-<body>
+      <div class="box col-12 top_explanation pt-5">
+        <div class= "box">
+          <div class= "title">
+          <h3>ようこそ、Uchinokoへ。</h3>
+          <p>このサイトは、Uchinokoと暮らす何気ない日常や思い出を共有できるサイトです。</p>
+          <p>その他、迷子の子や里親を探す子たちの手助けもしています。</p>
+          <p>さまざまなUchinokoたちに関する情報を入手したり、</p>
+          <p>かわいいUchinokoを自慢しあったり、</p>
+          <p>もっとUchinokoと過ごすことが楽しくなりますように。</p>
+          </div>
+        <div class = "container pt-8">
+          <div class="new-gallery">
+            <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+          　  新着ギャラリー
+          　<i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+          </div>
+            <div class = "row pt-2">
+          　<% @galleries.first(4).each do |gallery| %>
+              <div class="col-3">
+                <div class="gallery-image">
+                  <%= link_to gallery_path(gallery) do %>
+                    <%= image_tag gallery.gallery_image, size: "200x200" %> <!--画像の表示-->
+                  <% end %>
+                  <div class="gallery">
+                   <%= gallery.title %></br>
+                   <%= gallery.customer.name %>さんの投稿
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            </div>
+          </div>
+        </div>
+          <h5 class = 'link text-center pb-3'>
+            <%= link_to "全てのギャラリーを見る＞", galleries_path ,class: 'all-item', style: "color:#20b2aa" %>
+          </h5>
+      </div>
+    </div>
+  </div>
+</body>
