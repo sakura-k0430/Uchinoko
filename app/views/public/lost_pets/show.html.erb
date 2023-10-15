@@ -1,52 +1,72 @@
-<h2>迷子の掲示板詳細</h2>
+<h2 class="container text-center">
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+    迷子掲示板詳細
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+</h2>
 
-<h2>タイトル</h2>
-<p><%= @lost_pet.title %></p>
-
-<h2>本文</h2>
-<p><%= @lost_pet.body %></p>
-
-<h2>画像</h2>
-  <%= image_tag @lost_pet.lost_pet_image, size: "300x300" %>
-
-<p>投稿日：<%= @lost_pet.created_at.strftime('%Y/%m/%d') %></p>
-<p>Uchinoko name：<%= link_to @lost_pet.customer.name, customer_path(@lost_pet.customer.id) %></p>
-<p><%= image_tag @lost_pet.customer.get_profile_image(100,100) %></p>
-
-<div>
-  <p>コメント件数：<%= @lost_pet.lost_pet_comments.count %></p>
-  <% @lost_pet.lost_pet_comments.each do |lost_pet_comment| %>
-    <p><%= image_tag lost_pet_comment.customer.get_profile_image(100,100) %></p>
-    <%= lost_pet_comment.customer.name %>
-    <%= lost_pet_comment.created_at.strftime('%Y/%m/%d') %><%= lost_pet_comment.comment %>
-    <% if lost_pet_comment.customer == current_customer %>
-      <%= link_to "削除", lost_pet_lost_pet_comment_path(lost_pet_comment.lost_pet, lost_pet_comment), method: :delete %>
-    <% end %>
-  <% end %>
+<div class="card-list-container py-5">
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <!--投稿画像表示-->
+    <%= image_tag @lost_pet.lost_pet_image, class:"card-img-top"; %>
+      <div class="card-body">
+          <div class="row">
+            <div class="col-3">
+              <!--投稿ユーザーアイコン表示-->
+              <%= image_tag @lost_pet.customer.get_profile_image(200,200), class:"mt-3 rounded-circle"; %>
+            </div>
+            <div class="col-8">
+              <p class="card-title">
+                <!--投稿タイトル表示-->
+                <strong><i class="fa-solid fa-camera-retro"></i><span><%= @lost_pet.title %></span></strong>
+              </p>
+              <!--投稿本文表示-->
+              <p class="card-text"><%= @lost_pet.body %></p>
+              <!--投稿ユーザー名表示-->
+              <span><i class="fas fa-user"></i> By<%= link_to @lost_pet.customer.name, customer_path(@lost_pet.customer.id) %>｜ </span>
+              <!--投稿日表示-->
+              <span><i class="fa-solid fa-paper-plane"></i><%= @lost_pet.created_at.strftime('%Y/%m/%d') %>｜</span>
+              <!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
+              <span><% if @lost_pet.favorited_by?(current_customer) %>
+              <!--remote; trueの追加によりJavaScriptのリクエストがfavoritesコントローラへ送信される data: {"turbolinks" => false}がないとリロードしないといけなくなる-->
+                <%= link_to lost_pet_lost_pet_favorites_path(@lost_pet), method: :delete, remote: true, data: {"turbolinks" => false} do %>
+                ♥<%= @lost_pet.lost_pet_favorites.count %> お気に入り
+                <% end %>
+              <% else %>
+                <%= link_to lost_pet_lost_pet_favorites_path(@lost_pet), method: :post, remote: true, data: {"turbolinks" => false} do %>
+                ♡<%= @lost_pet.lost_pet_favorites.count %>  お気に入り
+              <% end %>
+              <% end %>
+              </span>
+              <br>
+              <span><i class="fa-solid fa-comment"></i>コメント件数：<%= @lost_pet.lost_pet_comments.count %></span><br>
+              <!--コメント表示-->
+              <span>
+                <% @lost_pet.lost_pet_comments.each do |lost_pet_comment| %>
+                <%= image_tag lost_pet_comment.customer.get_profile_image(50,50), class:"mt-3 rounded-circle"; %>
+                <i class="fa-solid fa-comment"></i><%= lost_pet_comment.comment %><br>
+                <i class="fas fa-user"></i> By<%= link_to lost_pet_comment.customer.name, customer_path(lost_pet_comment.customer.id) %>｜
+                <i class="fa-solid fa-paper-plane"></i><%= lost_pet_comment.created_at.strftime('%Y/%m/%d') %>｜
+                <% if lost_pet_comment.customer == current_customer %>
+                <%= link_to "コメント削除", lost_pet_lost_pet_comment_path(lost_pet_comment.lost_pet, lost_pet_comment), method: :delete %>
+                <% end %>
+                <% end %>
+              </span><br>
+              <!--コメント入力フォーム-->
+              <span>
+                <%= form_with model: [@lost_pet, @lost_pet_comment] do |f| %>
+                <%= f.text_area :comment, rows: '3', placeholder: "コメントを入力" %>
+                <%= f.submit "送信する" %>
+                <% end %>
+              </span>
+              <br>
+              <span>
+                <% if @lost_pet.customer == current_customer %>
+                <button type="button" class="btn btn-outline-primary"><%= link_to "投稿編集", edit_lost_pet_path(@lost_pet.id) %></button>
+                <button type="button" class="btn btn-outline-danger"><%= link_to "投稿削除", lost_pet_path(@lost_pet.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></button>
+                <% end %>
+              </span>
+            </div>
+          </div>
+      </div>
+  </div>
 </div>
-<div>
-  <%= form_with model: [@lost_pet, @lost_pet_comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
-
-<% if @lost_pet.customer == current_customer %>
-  <%= link_to "編集", edit_lost_pet_path(@lost_pet.id) %>
-  <%= link_to "削除", lost_pet_path(@lost_pet.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-<% end %>
-
-<!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
-<% if @lost_pet.favorited_by?(current_customer) %>
-    <p>
-      <%= link_to lost_pet_lost_pet_favorites_path(@lost_pet), method: :delete do %>
-        ♥<%= @lost_pet.lost_pet_favorites.count %> お気に入り
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to lost_pet_lost_pet_favorites_path(@lost_pet), method: :post do %>
-        ♡<%= @lost_pet.lost_pet_favorites.count %>  お気に入り
-      <% end %>
-    </p>
-<% end %>

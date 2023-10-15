@@ -1,53 +1,72 @@
-<h2>ギャラリー投稿詳細</h2>
+<h2 class="container text-center">
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+    ギャラリー投稿詳細
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+</h2>
 
-<h2>タイトル</h2>
-<p><%= @gallery.title %></p>
-
-<h2>本文</h2>
-<p><%= @gallery.body %></p>
-
-<h2>画像</h2>
-  <%= image_tag @gallery.gallery_image, size: "300x300" %>
-
-<p>投稿日：<%= @gallery.created_at.strftime('%Y/%m/%d') %></p>
-<p>Uchinoko name：<%= link_to @gallery.customer.name, customer_path(@gallery.customer.id) %></p>
-<p><%= image_tag @gallery.customer.get_profile_image(100,100) %></p>
-
-<div>
-  <p>コメント件数：<%= @gallery.gallery_comments.count %></p>
-  <% @gallery.gallery_comments.each do |gallery_comment| %>
-    <p><%= image_tag gallery_comment.customer.get_profile_image(100,100) %></p>
-    <%= gallery_comment.customer.name %>
-    <%= gallery_comment.created_at.strftime('%Y/%m/%d') %><%= gallery_comment.comment %>
-    <% if gallery_comment.customer == current_customer %>
-      <%= link_to "削除", gallery_gallery_comment_path(gallery_comment.gallery, gallery_comment), method: :delete %>
-    <% end %>
-  <% end %>
+<div class="card-list-container py-5">
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <!--投稿画像表示-->
+    <%= image_tag @gallery.gallery_image, class:"card-img-top"; %>
+      <div class="card-body">
+          <div class="row">
+            <div class="col-3">
+              <!--投稿ユーザーアイコン表示-->
+              <%= image_tag @gallery.customer.get_profile_image(200,200), class:"mt-3 rounded-circle"; %>
+            </div>
+            <div class="col-8">
+              <p class="card-title">
+                <!--投稿タイトル表示-->
+                <strong><i class="fa-solid fa-camera-retro"></i><span><%= @gallery.title %></span></strong>
+              </p>
+              <!--投稿本文表示-->
+              <p class="card-text"><%= @gallery.body %></p>
+              <!--投稿ユーザー名表示-->
+              <span><i class="fas fa-user"></i> By<%= link_to @gallery.customer.name, customer_path(@gallery.customer.id) %>｜ </span>
+              <!--投稿日表示-->
+              <span><i class="fa-solid fa-paper-plane"></i><%= @gallery.created_at.strftime('%Y/%m/%d') %>｜</span>
+              <!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
+              <span><% if @gallery.favorited_by?(current_customer) %>
+              <!--remote; trueの追加によりJavaScriptのリクエストがfavoritesコントローラへ送信される data: {"turbolinks" => false}がないとリロードしないといけなくなる-->
+                <%= link_to gallery_gallery_favorites_path(@gallery), method: :delete, remote: true, data: {"turbolinks" => false} do %>
+                ♥<%= @gallery.gallery_favorites.count %> お気に入り
+                <% end %>
+              <% else %>
+                <%= link_to gallery_gallery_favorites_path(@gallery), method: :post, remote: true, data: {"turbolinks" => false} do %>
+                ♡<%= @gallery.gallery_favorites.count %>  お気に入り
+              <% end %>
+              <% end %>
+              </span>
+              <br>
+              <span><i class="fa-solid fa-comment"></i>コメント件数：<%= @gallery.gallery_comments.count %></span><br>
+              <!--コメント表示-->
+              <span>
+                <% @gallery.gallery_comments.each do |gallery_comment| %>
+                <%= image_tag gallery_comment.customer.get_profile_image(50,50), class:"mt-3 rounded-circle"; %>
+                <i class="fa-solid fa-comment"></i><%= gallery_comment.comment %><br>
+                <i class="fas fa-user"></i> By<%= link_to gallery_comment.customer.name, customer_path(gallery_comment.customer.id) %>｜
+                <i class="fa-solid fa-paper-plane"></i><%= gallery_comment.created_at.strftime('%Y/%m/%d') %>｜
+                <% if gallery_comment.customer == current_customer %>
+                <%= link_to "コメント削除", gallery_gallery_comment_path(gallery_comment.gallery, gallery_comment), method: :delete %>
+                <% end %>
+                <% end %>
+              </span><br>
+              <!--コメント入力フォーム-->
+              <span>
+                <%= form_with model: [@gallery, @gallery_comment] do |f| %>
+                <%= f.text_area :comment, rows: '3', placeholder: "コメントを入力" %>
+                <%= f.submit "送信する" %>
+                <% end %>
+              </span>
+              <br>
+              <span>
+                <% if @gallery.customer == current_customer %>
+                <button type="button" class="btn btn-outline-primary"><%= link_to "投稿編集", edit_gallery_path(@gallery.id) %></button>
+                <button type="button" class="btn btn-outline-danger"><%= link_to "投稿削除", gallery_path(@gallery.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></button>
+                <% end %>
+              </span>
+            </div>
+          </div>
+      </div>
+  </div>
 </div>
-<div>
-  <%= form_with model: [@gallery, @gallery_comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
-
-<% if @gallery.customer == current_customer %>
-<%= link_to "編集", edit_gallery_path(@gallery.id) %>
-<%= link_to "削除", gallery_path(@gallery.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-<% end %>
-
-<!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
-<% if @gallery.favorited_by?(current_customer) %>
-    <p>
-      <!--remote; trueの追加によりJavaScriptのリクエストがfavoritesコントローラへ送信される data: {"turbolinks" => false}がないとリロードしないといけなくなる-->
-      <%= link_to gallery_gallery_favorites_path(@gallery), method: :delete, remote: true, data: {"turbolinks" => false} do %>
-        ♥<%= @gallery.gallery_favorites.count %> お気に入り
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to gallery_gallery_favorites_path(@gallery), method: :post, remote: true, data: {"turbolinks" => false} do %>
-        ♡<%= @gallery.gallery_favorites.count %>  お気に入り
-      <% end %>
-    </p>
-<% end %>

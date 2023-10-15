@@ -1,27 +1,25 @@
-<button type="button" class="btn btn-info">
-  <%= link_to "里親掲示板へ投稿する", new_foster_parent_path %>
-</button>
-
-<h1>
-  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
-    里親掲示板一覧
-  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
-</h1>
-
-<div class="card-list-container py-5">
-  <% @foster_parents.each do |foster_parent| %>
-     <div class="card w-50 mx-auto mt-4 shadow-lg">
-       <%= image_tag foster_parent.foster_parent_image, class:"card-img-top"; %>
-         <div class="card-body">
-          <div class="row">
-            <div class="col-2">
-              <%= image_tag foster_parent.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
-            </div>
-            <div class="col-10">
+<div class="container text-center" >
+  <h1>
+    <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+      里親掲示板一覧
+    <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+  </h1>
+  <button type="button" class="btn btn-outline-info btn-lg">
+    <i class="fa-solid fa-paper-plane"></i><%= link_to "里親掲示板へ投稿する", new_foster_parent_path %>
+  </button>
+  <div class="card-deck" style="width:100rem">
+    <% @foster_parents.each do |foster_parent| %>
+      <div class="card w-50 mx-auto shadow-lg">
+        <%= image_tag foster_parent.foster_parent_image, class:"card-img-top"; %>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <%= image_tag foster_parent.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+              </div>
+              <div class="col-8">
               <p class="card-title">
-                <strong><i class="far fa-flag"></i><span><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></span></strong>
+                <strong><i class= "fa-solid fa-shield-dog"></i><span><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></span></strong>
               </p>
-              <p class="card-text">本文：<%= foster_parent.body %></p>
               <span><i class="fas fa-user"></i> By<%= link_to foster_parent.customer.name, customer_path(foster_parent.customer.id) %>｜ </span>
               <span><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></span>
             </div>
@@ -29,4 +27,5 @@
         </div>
       </div>
   <% end %>
+  </div>
 </div>
