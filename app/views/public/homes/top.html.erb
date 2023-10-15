@@ -18,15 +18,16 @@
           　<i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
           </div>
             <div class = "row pt-2">
-          　<% @galleries.first(4).each do |gallery| %>
+          　<% @galleries.first(3).each do |gallery| %>
               <div class="col-3">
                 <div class="gallery-image">
                   <%= link_to gallery_path(gallery) do %>
                     <%= image_tag gallery.gallery_image, size: "200x200" %> <!--画像の表示-->
                   <% end %>
                   <div class="gallery">
-                   <%= gallery.title %></br>
-                   <%= gallery.customer.name %>さんの投稿
+                   <i class= "fa-solid fa-camera-retro"></i><%= gallery.title %></br>
+                   <%= link_to gallery.customer.name, customer_path(gallery.customer.id) %>さんの投稿をもっとみる
+                   <i class="fa-solid fa-magnifying-glass"></i>
                   </div>
                 </div>
               </div>
@@ -35,7 +36,7 @@
           </div>
         </div>
           <h5 class = 'link text-center pb-3'>
-            <%= link_to "全てのギャラリーを見る＞", galleries_path ,class: 'all-item', style: "color:#20b2aa" %>
+            <%= link_to "全てのギャラリーを見る＞", galleries_path ,class: 'all-item', style: "color:#ffffff" %>
           </h5>
       </div>
     </div>

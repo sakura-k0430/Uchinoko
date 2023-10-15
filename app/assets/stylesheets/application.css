@@ -13,6 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+header,container {
+  font-family: 'Caveat', cursive;
+}
+
 footer {
   bottom: 0;
   margin-bottom: 0;
