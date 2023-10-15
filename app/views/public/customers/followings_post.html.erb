@@ -1,37 +1,82 @@
-<h3>タイムライン</h3>
+<div class="container text-center" >
+<h1>
+  <i class="fa-solid fa-dove" style="color: #20b2aa;"></i>
+    タイムライン
+</h1>
+<p style="color: #20b2aa;">こちらには自身のすべての投稿とフォローしているユーザーのすべての投稿が表示されます</p>
 
 <%  @gallery_posts.each do |gallery| %>
-<div>
-  <%= link_to gallery_path(gallery.id) do %>
-    <%= image_tag gallery.gallery_image, size: "300x300"%>
-  <% end %>
- <p>タイトル：<%= link_to gallery.title, gallery_path(gallery.id) %></p>
- <p>Uchinoko name：<%= link_to gallery.customer.name, customer_path(gallery.customer.id) %></p>
- <p><%= image_tag gallery.customer.get_profile_image(100,100) %></p>
-  <p><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></p>
-</div>
+  <div class="card w-50 mx-auto shadow-lg">
+    <div>
+      <%= link_to gallery_path(gallery.id) do %>
+      <%= image_tag gallery.gallery_image, class:"card-img-top";%>
+      <% end %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-3">
+            <%= image_tag gallery.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+          </div>
+          <div class="col-8">
+            <p class="card-title">
+              <strong><i class= "fa-solid fa-camera-retro"></i><span><%= link_to gallery.title, gallery_path(gallery.id) %></span></strong>
+            </p>
+            <span><i class="fas fa-user"></i> By<%= link_to gallery.customer.name, customer_path(gallery.customer.id) %>｜</span>
+            <span><i class="fa-solid fa-paper-plane"></i><%= gallery.created_at.strftime('%Y/%m/%d') %>｜</span>
+            <span><i class="fa-solid fa-comment"></i><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <%  @lost_pet_posts.each do |lost_pet| %>
-<div>
-  <%= link_to lost_pet_path(lost_pet.id) do %>
-    <%= image_tag lost_pet.lost_pet_image, size: "300x300"%>
-  <% end %>
-  <p>タイトル：<%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %></p>
-  <p>Uchinoko name：<%= link_to lost_pet.customer.name, customer_path(lost_pet.customer.id) %></p>
-  <p><%= image_tag lost_pet.customer.get_profile_image(100,100) %></p>
-  <p><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></p>
-</div>
+  <div class="card w-50 mx-auto shadow-lg">
+    <div>
+    <%= link_to lost_pet_path(lost_pet.id) do %>
+    <%= image_tag lost_pet.lost_pet_image, class:"card-img-top";%>
+    <% end %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-3">
+          <%= image_tag lost_pet.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+        </div>
+          <div class="col-8">
+            <p class="card-title">
+              <strong><i class= "fa-solid fa-shoe-prints"></i><span><%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %></span></strong>
+            </p>
+            <span><i class="fas fa-user"></i> By<%= link_to lost_pet.customer.name, customer_path(lost_pet.customer.id) %>｜</span>
+            <span><i class="fa-solid fa-paper-plane"></i><%= lost_pet.created_at.strftime('%Y/%m/%d') %>｜</span>
+            <span><i class="fa-solid fa-comment"></i><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <%  @foster_parent_posts.each do |foster_parent| %>
-<div>
-  <%= link_to foster_parent_path(foster_parent.id) do %>
-    <%= image_tag foster_parent.foster_parent_image, size: "300x300"%>
-  <% end %>
-  <p>タイトル：<%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></p>
-  <p>Uchinoko name：<%= link_to foster_parent.customer.name, customer_path(foster_parent.customer.id) %></p>
-  <p><%= image_tag foster_parent.customer.get_profile_image(100,100) %></p>
-  <p><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></p>
-</div>
+  <div class="card w-50 mx-auto shadow-lg">
+    <div>
+      <%= link_to foster_parent_path(foster_parent.id) do %>
+      <%= image_tag foster_parent.foster_parent_image, class:"card-img-top";%>
+      <% end %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-3">
+            <%= image_tag foster_parent.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+          </div>
+            <div class="col-8">
+              <p class="card-title">
+                <strong><i class= "fa-solid fa-shield-dog"></i><span><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></span></strong>
+              </p>
+              <span><i class="fas fa-user"></i> By<%= link_to foster_parent.customer.name, customer_path(foster_parent.customer.id) %>｜</span>
+              <span><i class="fa-solid fa-paper-plane"></i><%= foster_parent.created_at.strftime('%Y/%m/%d') %>｜</span>
+              <span><i class="fa-solid fa-comment"></i><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
