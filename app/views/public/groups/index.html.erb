@@ -2,7 +2,14 @@
   <%= flash[:notice] %>
   <div class='row'>
     <div class='col-md-8 offset-md-1'>
-      <h2>グループ一覧</h2>
+      <h2>
+        <i class="fa-solid fa-otter" style="color: #20b2aa;"></i>
+        グループ一覧
+        <i class="fa-solid fa-otter" style="color: #20b2aa;"></i>
+      </h2>
+      <button type="button" class="btn btn-outline-primary">
+  　　<i class="fa-solid fa-user-plus"></i><%=link_to "グループを作成する",new_group_path %>
+　　　</button>
       <%= render 'index', groups: @groups %>
     </div>
   </div>
