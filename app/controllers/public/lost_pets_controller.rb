@@ -7,8 +7,10 @@ class Public::LostPetsController < ApplicationController
     @lost_pet = LostPet.new(lost_pet_params)
     @lost_pet.customer_id = current_customer.id
     if @lost_pet.save
+      flash[:notice] = "投稿に成功しました。"
       redirect_to  lost_pet_path(@lost_pet.id)
     else
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new
     end
   end
@@ -30,12 +32,14 @@ class Public::LostPetsController < ApplicationController
   def update
     lost_pet = LostPet.find(params[:id])
     lost_pet.update(lost_pet_params)
+    flash[:notice] = "投稿の編集に成功しました。"
     redirect_to lost_pet_path(lost_pet.id)
   end
 
   def destroy
     lost_pet = LostPet.find(params[:id])
     lost_pet.destroy
+    flash[:notice] = "投稿の削除に成功しました。"
     redirect_to lost_pets_path
   end
 
