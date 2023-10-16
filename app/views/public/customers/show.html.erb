@@ -1,110 +1,149 @@
-<% if @customer == current_customer %>
-<h2>マイプロフィール</h2>
-<% else %>
-<h2>ユーザープロフィール</h2>
-<% end %>
+<div class="container text-center" >
+  <% if @customer == current_customer %>
+  <h1>
+    <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+    マイプロフィール
+    <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+  </h1>
+  <% else %>
+  <h1>
+    <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+    ユーザープロフィール
+    <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+  </h1>
+  <% end %>
 <!-- ユーザーの詳細 -->
-<div>
-  <h3>
-    ユーザーネーム
-    <%= @customer.name %>
-  </h3>
-  <h3>
-    住んでいる都道府県
-    <%= @customer.address %>
-  </h3>
-  <h3>
-    自己紹介
-    <%= @customer.introduction %>
-  </h3>
-    <%= image_tag @customer.get_profile_image(100,100) %>
-    <%= link_to "お気に入りした投稿一覧", favorites_customer_path(@customer) %>
-
-    <% if current_customer.following?(@customer) %>
-    <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete %>
-    <% else %>
-    <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post %>
-    <% end %>
-
-    <!--以下DM機能の記述-->
+  <div class="card w-50 mx-auto shadow-lg">
+    <%= image_tag @customer.get_profile_image(300,300) %>
+    <div class="card-body">
+      <h5 class="card-title">Uchinoko Name:<%= @customer.name %></h5>
+        <p class="card-text">自己紹介:<%= @customer.introduction %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" >
+        <i class="fa-solid fa-map-pin" style="color: #20b2aa;"></i>
+        住んでいる地域:<%= @customer.address %>
+      </li>
+      <li class="list-group-item">
+        <i class="fa-solid fa-heart" style="color: #20b2aa;"></i>
+        <%= link_to "お気に入りした投稿一覧", favorites_customer_path(@customer) %>
+      </li>
+      <li class="list-group-item" style="color: #20b2aa;">
+        <i class="fa-solid fa-hands"></i>
+        <% if current_customer.following?(@customer) %>
+          <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete %>
+        <% else %>
+          <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post %>
+        <% end %>
+      </li>
+      <li class="list-group-item">
+        <i class="fa-solid fa-hands-holding" style="color: #20b2aa;"></i>
+        <%= link_to "フォロー一覧", customer_followings_path(@customer.id) %>
+      </li>
+      <li class="list-group-item">
+        <i class="fa-solid fa-hands-praying" style="color: #20b2aa;"></i>
+        <%= link_to "フォロワー一覧", customer_followers_path(@customer.id) %>
+      </li>
+      <li class="list-group-item">
+        <i class="fa-solid fa-message" style="color: #20b2aa;">お互いにフォローし合っている場合チャットが可能です</i>
+        <!--以下DM機能の記述-->
     <!--現在ログインしているユーザーではない-->
-    <% unless @customer.id == current_customer.id %>
+        <% unless @customer.id == current_customer.id %>
     <!--相互フォロー状態の条件式-->
-    <% if (current_customer.following? @customer) && (@customer.following? current_customer)  %>
+        <% if (current_customer.following? @customer) && (@customer.following? current_customer)  %>
     <!--ルームが作成されている時とされていない時の条件分岐-->
-    <% if @isRoom == true %>
-      <p class="customer-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
-    <% else %>
+        <% if @isRoom == true %>
+          <p class="customer-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary">チャットへ</a>
+        <% else %>
     <!--ルームが作成されていなかった場合作成-->
-    <%= form_for @room do |f| %>
-      <%= fields_for @entry do |entry| %>
+        <%= form_for @room do |f| %>
+        <%= fields_for @entry do |entry| %>
       <!--Entriesテーブルのレコードにはcustomer_idを送る必要があるので、hidden_field-->
         <%= entry.hidden_field :customer_id, value: @customer.id %>
-      <% end %>
-      <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg customer-show-chat"%>
-    <% end %>
-    <% end %>
-    <% end %>
-    <% end %>
-
-  <div>
-    <%= link_to "フォロー一覧", customer_followings_path(@customer.id) %>
+        <% end %>
+        <%= f.submit "チャットを始める", class:"btn btn-primary customer-show-chat"%>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>
+      </li>
+      <li class="list-group-item">
+        <!--ログインしているユーザー本人であれば編集と退会を表示-->
+        <% if @customer == current_customer %>
+        <%= link_to "プロフィール編集", edit_customer_path(@customer.id), :class => "btn btn-outline-success ms-3" %>
+        <%= link_to "退会する", customers_check_path, :class => "btn btn-outline-danger ms-3" %>
+        <% end %>
+      </li>
+    </ul>
   </div>
-  <div>
-    <%= link_to "フォロワー一覧", customer_followers_path(@customer.id) %>
-  </div>
-
-<!--ログインしているユーザー本人であれば編集と退会を表示-->
-  <% if @customer == current_customer %>
-  <p><%= link_to "プロフィール編集", edit_customer_path(@customer.id) %></p>
-  <%= link_to "退会する", customers_check_path, :class => "btn btn-danger ms-3" %>
-  <% end %>
-</div>
 
 <!-- ユーザーのギャラリー投稿一覧 -->
-<h3><%= @customer.name %>さんのギャラリー投稿一覧</h3>
-<% if @galleries.exists? %>
-<%  @galleries.each do |gallery| %>
-<div>
-  <%= link_to gallery_path(gallery.id) do %>
-    <%= image_tag gallery.gallery_image, size: "300x300"%>
+<h3>
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+  <%= @customer.name %>さんのギャラリー投稿一覧
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+</h3>
+
+  <% if @galleries.exists? %>
+    <div class="card-deck" style="width: 18rem;">
+      <div class="card mx-auto shadow-lg">
+      <%  @galleries.each do |gallery| %>
+        <%= link_to gallery_path(gallery.id) do %>
+        <%= image_tag gallery.gallery_image, class:"card-img-top"; %>
+        <% end %>
+        <span><i class="fa-solid fa-camera-retro"></i><%= link_to gallery.title, gallery_path(gallery.id) %></span>
+        <span><i class="fa-solid fa-paper-plane"></i><%= gallery.created_at.strftime('%Y/%m/%d') %></span>
+        <span><i class="fa-solid fa-comment"></i><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></span>
+        <% end %>
+      </div>
+  <% else %>
+    <p style="color: #20b2aa;">投稿はありません</p>
   <% end %>
- <p>タイトル：<%= link_to gallery.title, gallery_path(gallery.id) %></p>
-  <p><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></p>
 </div>
-<% end %>
-<% else %>
-  <p>投稿はありません</p>
-<% end %>
 
 <!-- ユーザーの迷子掲示板投稿一覧 -->
-<h3><%= @customer.name %>さんの迷子掲示板投稿一覧</h3>
+<h3>
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+  <%= @customer.name %>さんの迷子掲示板投稿一覧
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+</h3>
 <% if @lost_pets.exists? %>
-<%  @lost_pets.each do |lost_pet| %>
-<div>
-  <%= link_to lost_pet_path(lost_pet.id) do %>
-    <%= image_tag lost_pet.lost_pet_image, size: "300x300"%>
-  <% end %>
-  <p>タイトル：<%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %></p>
-  <p><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></p>
-</div>
-<% end %>
+  <div class="card-deck" style="width: 18rem;">
+    <div class="card mx-auto shadow-lg">
+    <%  @lost_pets.each do |lost_pet| %>
+      <%= link_to lost_pet_path(lost_pet.id) do %>
+      <%= image_tag lost_pet.lost_pet_image, class:"card-img-top";%>
+      <% end %>
+      <span><i class="fa-solid fa-shoe-prints"></i><%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %></span>
+      <span><i class="fa-solid fa-paper-plane"></i><%= lost_pet.created_at.strftime('%Y/%m/%d') %></span>
+      <span><i class="fa-solid fa-comment"></i><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></span>
+      <% end %>
 <% else %>
-  <p>投稿はありません</p>
+  <p style="color: #20b2aa;">投稿はありません</p>
 <% end %>
+</div>
+</div>
 
 <!-- ユーザーの里親掲示板投稿一覧 -->
-<h3><%= @customer.name %>さんの里親掲示板投稿一覧</h3>
+<h3>
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+  <%= @customer.name %>さんの里親掲示板投稿一覧
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+</h3>
 <% if @foster_parents.exists? %>
-<%  @foster_parents.each do |foster_parent| %>
-<div>
-  <%= link_to foster_parent_path(foster_parent.id) do %>
-    <%= image_tag foster_parent.foster_parent_image, size: "300x300"%>
-  <% end %>
-  <p>タイトル：<%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></p>
-  <p><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></p>
-</div>
-<% end %>
+  <div class="card-deck" style="width: 18rem;">
+    <div class="card mx-auto shadow-lg">
+    <%  @foster_parents.each do |foster_parent| %>
+      <%= link_to foster_parent_path(foster_parent.id) do %>
+      <%= image_tag foster_parent.foster_parent_image, class:"card-img-top";%>
+      <% end %>
+      <span><i class="fa-solid fa-shoe-prints"></i><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></span>
+      <span><i class="fa-solid fa-paper-plane"></i><%= foster_parent.created_at.strftime('%Y/%m/%d') %></span>
+      <span><i class="fa-solid fa-comment"></i><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></span>
+      <% end %>
 <% else %>
-  <p>投稿はありません</p>
+  <p style="color: #20b2aa;">投稿はありません</p>
 <% end %>
+</div>
+</div>
+</div>
