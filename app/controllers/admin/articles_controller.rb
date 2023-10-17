@@ -15,7 +15,6 @@ class Admin::ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
-    @article = Article.new
   end
 
   def show

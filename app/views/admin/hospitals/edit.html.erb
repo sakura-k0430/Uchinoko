@@ -1,32 +1,54 @@
-<h1>病院情報編集画面</h1>
-
-<%= form_with model: @hospital, url: admin_hospital_path(@hospital.id), method: :patch do |f| %>
-
-  <h4>病院名</h4>
-  <%= f.text_field :name %>
-
-  <h4>所在地</h4>
-  <%= f.text_area :address %>
-
-  <h4>電話番号</h4>
-  <%= f.text_field :phone_number %>
-
-  <h4>病院説明(特色など)</h4>
-  <%= f.text_area :explanation %>
-
-  <p>
-    <%= f.label :genre, 'ジャンル選択' %>
-    <%= f.collection_check_boxes(:genre_ids, Genre.all, :id, :name) do |genre| %>
-      <%= genre.label do %>
-        <%= genre.check_box %>
-        <%= genre.text %>
-      <% end %>
-    <% end %>
-  </p>
-
-  <h4>病院イメージ画像</h4>
-  <%= f.file_field :hospital_image, accept: "image/*" %>
-
-  <%= f.submit '変更内容保存' %>
-
-<% end %>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light p-4 mb-0">病院登録</h5>
+      <div class="form-body p-4">
+        <% if @hospital.errors.any? %>
+        <ul class="alert alert-danger" role="alert">
+          <h6 class="alert-heading">
+          <%= @hospital.errors.count %>件のエラーが発生しました
+          </h6>
+          <% @hospital.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+        <% end %>
+        <%= form_with model: @hospital, url: admin_hospital_path(@hospital.id), method: :patch do |f| %>
+        <%= f.file_field :hospital_image, accept: "image/*", class: "w-100" %>
+        <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-hospital"></i></span>
+          </div>
+          <%= f.text_field :name, class:"form-control", placeholder:"病院名" %>
+        </div>
+        <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-map-pin"></i></span>
+          </div>
+          <%= f.text_area :address, class:"form-control", placeholder:"所在地" %>
+        </div>
+         <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-phone"></i></span>
+          </div>
+          <%= f.text_field :phone_number, class:"form-control", placeholder:"電話番号" %>
+        </div>
+        <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-stethoscope"></i></span>
+          </div>
+          <%= f.label :genre, 'ジャンル選択' %>
+          <%= f.collection_check_boxes(:genre_ids, Genre.all, :id, :name) do |genre| %>
+          <%= genre.label do %>
+          <%= genre.check_box %>
+          <%= genre.text %>
+          <% end %>
+          <% end %>
+        </div>
+        <%= f.text_area :explanation, class:"form-control", rows:"7", placeholder:"病院説明(得意治療の分野など)" %>
+        <%= f.submit '登録', class:"btn btn-lg btn-block btn-info mt-4" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

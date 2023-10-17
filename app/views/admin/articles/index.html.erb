@@ -1,25 +1,23 @@
-<h1>コラム一覧</h1>
-
-<% @articles.each do |article| %>
-  <p>タイトル</p>
-  <span>
-  <%= link_to article.title, admin_article_path(article.id) %>
-  </span>
-  <p>画像</p>
-  <%= image_tag article.article_image, size: "200x200" %>
-
-<% end %>
-
-<h1>コラム投稿</h1>
-<%= form_with model: @article, url: admin_articles_path, method: :post do |f| %>
-<h4>タイトル</h4>
-  <%= f.text_field :title %>
-
-  <h4>本文</h4>
-  <%= f.text_area :body %>
-
-  <h4>画像</h4>
-  <%= f.file_field :article_image, accept: "image/*" %>
-
-  <%= f.submit '投稿' %>
-<% end %>
+<div class="container text-center" >
+  <h1>
+    <i class="fa-solid fa-newspaper" style="color: #20b2aa;"></i>
+    コラム一覧
+    <i class="fa-solid fa-newspaper" style="color: #20b2aa;"></i>
+  </h1>
+  <button type="button" class="btn btn-outline-info btn-lg">
+    <i class="fa-solid fa-paper-plane"></i><%= link_to "コラムを作成する", new_admin_article_path %>
+  </button>
+  <div class="card-deck" style="width:30rem">
+    <% @articles.each do |article| %>
+    <div class="card w-25 mx-auto shadow-lg">
+      <%= image_tag article.article_image, class:"card-img-top"; %>
+      <p class="card-title">
+        <i class="fa-solid fa-newspaper"></i><%= link_to article.title, admin_article_path(article.id) %>
+      </p>
+      <div class="card-body">
+        <span><i class="fa-solid fa-paper-plane"></i><%= article.created_at.strftime('%Y/%m/%d') %>作成</span>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
