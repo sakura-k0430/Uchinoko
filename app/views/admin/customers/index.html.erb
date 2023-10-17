@@ -1,6 +1,10 @@
 <div class="container">
   <div class="row">
-    <h2>会員一覧</h2>
+    <h2>
+      <i class="fa-solid fa-cat" style="color: #20b2aa;"></i>
+      会員一覧
+      <i class="fa-solid fa-cat" style="color: #20b2aa;"></i>
+    </h2>
 
       <table class="table">
         <thead>
@@ -17,8 +21,8 @@
             <td><%= customer.id %></td>
             <td><%= customer.name %></td>
             <td><%= customer.email %></td>
-           <td class="<%= customer.is_deleted ? 'text-gray' : 'text-green' %>"><%= customer.is_deleted ? '退会済み' : '有効' %></td>
-           <td><%= link_to '詳細情報へ', admin_customer_path(customer), class: 'btn btn-success btn-space' %></td>
+            <td style="margin-left:90px; color:<%= customer.is_deleted ? 'gray' : 'green' %>;"><%= customer.is_deleted ? '退会済み' : '有効' %></td>
+            <td><%= link_to '詳細情報へ', admin_customer_path(customer), class: 'btn btn-success btn-space' %></td>
           </tr>
         <% end %>
       </table>

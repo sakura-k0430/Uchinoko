@@ -1,11 +1,48 @@
-<div class="container mt-5">
-  <h2 class="mb-4 text-center"><%= @customer.name %>さんの会員詳細</h2>
-
-  <div class="pl-5">
-    <p class="my-3"><strong>会員ID </strong><span style="margin-left:150px;"><%= @customer.id %></span></p>
-    <p class="my-3"><strong>ニックネーム</strong><span style="margin-left:160px;"><%= @customer.name %></span></p>
-    <p class="my-3"><strong>住んでいる都道府県</strong><span style="margin-left:160px;"><%= @customer.address %></span></p>
-    <p class="my-3"><strong>メールアドレス </strong><span style="margin-left:80px;"><%= @customer.email %></span></p>
-    <p class="my-3"><strong>会員ステータス </strong><span style="margin-left:90px; color:<%= @customer.is_deleted ? 'gray' : 'green' %>;"><%= @customer.is_deleted ? '退会済み' : '有効' %></span></p>
-
-   <%= link_to '編集する', edit_admin_customer_path(@customer), class: 'btn btn-success btn-space' %>
+<div class="container">
+  <div class="row">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <h3>
+              <i class="fa-solid fa-cat" style="color: #20b2aa;"></i>
+              <%= @customer.name %>さんの会員詳細
+              <i class="fa-solid fa-cat" style="color: #20b2aa;"></i>
+            </h3>
+          </th>
+        </tr>
+      </thead>
+      <thead>
+        <tr>
+          <th>会員ID</th>
+          <td><%= @customer.id %></td>
+        </tr>
+        <tr>
+          <th>ニックネーム</th>
+          <td><%= @customer.name %></td>
+        </tr>
+        <tr>
+          <th>住んでいる都道府県</th>
+          <td><%= @customer.address %></td>
+        </tr>
+        <tr>
+          <th>自己紹介</th>
+          <td><%= @customer.introduction %></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= @customer.email %></td>
+        </tr>
+        <tr>
+          <th>会員ステータス</th>
+          <td>
+            <span style="margin-left:90px; color:<%= @customer.is_deleted ? 'gray' : 'green' %>;"><%= @customer.is_deleted ? '退会済み' : '有効' %></span>
+          </td>
+        </tr>
+        <tr>
+          <td><%= link_to '編集する', edit_admin_customer_path(@customer), class: 'btn btn-success btn-space' %></td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
