@@ -1,12 +1,24 @@
-<h2>コラム投稿詳細</h2>
-
-<h2>タイトル</h2>
-<p><%= @article.title %></p>
-
-<h2>本文</h2>
-<p><%= @article.body %></p>
-
-<h2>画像</h2>
-  <%= image_tag @article.article_image, size: "300x300" %>
-
-<p>投稿日：<%= @article.created_at.strftime('%Y/%m/%d') %></p>
+<h2 class="container text-center">
+  <i class="fa-solid fa-newspaper" style="color: #20b2aa;"></i>
+  コラム投稿詳細
+  <i class="fa-solid fa-newspaper" style="color: #20b2aa;"></i>
+</h2>
+<div class="card-list-container py-5">
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <!--コラム画像表示-->
+    <%= image_tag @article.article_image, class:"card-img-top"; %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8">
+          <p class="card-title">
+            <!--コラムタイトル表示-->
+            <strong><i class="fa-solid fa-newspaper"></i><span><%= @article.title %></span></strong>
+          </p>
+          <!--投稿本文表示-->
+          <p class="card-text"><%= @article.body %></p>
+          <span><i class="fa-solid fa-paper-plane"></i>投稿日：<%= @article.created_at.strftime('%Y/%m/%d') %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

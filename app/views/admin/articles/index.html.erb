@@ -12,6 +12,7 @@
     <div class="card w-25 mx-auto shadow-lg">
       <%= image_tag article.article_image, class:"card-img-top"; %>
       <p class="card-title">
+        <!--コラムタイトル表示-->
         <i class="fa-solid fa-newspaper"></i><%= link_to article.title, admin_article_path(article.id) %>
       </p>
       <div class="card-body">

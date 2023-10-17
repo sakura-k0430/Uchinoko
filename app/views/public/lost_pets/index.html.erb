@@ -4,9 +4,15 @@
     迷子掲示板一覧
     <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
   </h1>
+  <p style="color: #20b2aa;">迷子を探している方や迷子を見つけた方などで情報交換できます</p>
+
+  <!--ゲストログインでは投稿不可にするため-->
+  <% if @customer == current_customer %>
   <button type="button" class="btn btn-outline-info btn-lg">
     <i class="fa-solid fa-paper-plane"></i><%= link_to "迷子掲示板へ投稿する", new_lost_pet_path %>
   </button>
+   <% end %>
+
     <div class="card-deck" style="width:100rem">
       <% @lost_pets.each do |lost_pet| %>
         <div class="card w-25 mx-auto shadow-lg">

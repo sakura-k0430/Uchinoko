@@ -19,12 +19,14 @@
           <span><i class="fa-solid fa-paper-plane"></i>投稿日：<%= @article.created_at.strftime('%Y/%m/%d') %></span>
           <hr>
           <span>
+            <% if admin_signed_in? %>
             <button type="button" class="btn btn-outline-primary">
             <%= link_to "コラム編集", edit_admin_article_path(@article.id) %>
             </button>
             <button type="button" class="btn btn-outline-danger">
               <%= link_to "コラム削除", admin_article_path(@article.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
             </button>
+            <% end %>
           </span>
         </div>
       </div>

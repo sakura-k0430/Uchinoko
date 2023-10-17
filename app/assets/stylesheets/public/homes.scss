@@ -41,3 +41,16 @@ body {
            }
     }
 }
+
+.about-body {
+  background-image: url('Uchinoko_top_image4.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  maegine: 40px;
+  padding: 5px;
+    .about-text {
+      background-color: rgba(255,255,255,0.4);
+    }
+
+}

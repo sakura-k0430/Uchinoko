@@ -4,9 +4,15 @@
       ギャラリー一覧
     <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
   </h1>
+  <p style="color: #20b2aa;">Uchinokoとの思い出を共有したりかわいいUchinokoを見せ合って交流できます</p>
+  
+  <!--ゲストログインでは投稿不可にするため-->
+  <% if @customer == current_customer %>
   <button type="button" class="btn btn-outline-info btn-lg">
     <i class="fa-solid fa-paper-plane"></i><%= link_to "ギャラリーへ投稿する", new_gallery_path %>
   </button>
+   <% end %>
+   
   <div class="card-deck" style="width:100rem">
     <% @galleries.each do |gallery| %>
       <div class="card mx-auto shadow-lg">

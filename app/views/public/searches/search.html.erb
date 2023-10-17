@@ -12,7 +12,7 @@
     <tbody>
       <% @customers.each do |customer| %>
         <tr>
-          <td><%= image_tag customer.get_profile_image(100,100) %></td>
+          <td><%= image_tag customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %></td>
           <td><%= link_to customer.name, customer_path(customer.id) %></td>
         </tr>
       <% end %>
@@ -32,7 +32,7 @@
         <tr>
           <td><%= link_to gallery.title, gallery_path(gallery.id) %></td>
           <td><%= link_to gallery.body, gallery_path(gallery.id) %></td>
-          <td><%= image_tag gallery.customer.get_profile_image(100,100) %></td>
+          <td><%= image_tag gallery.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %></td>
           <td><%= link_to gallery.customer.name, customer_path(gallery.customer.id) %></td>
         </tr>
       <% end %>
@@ -52,7 +52,7 @@
         <tr>
           <td><%= link_to lost_pet.title, lost_pet_path(lost_pet.id) %></td>
           <td><%= link_to lost_pet.body, lost_pet_path(lost_pet.id) %></td>
-          <td><%= image_tag lost_pet.customer.get_profile_image(100,100) %></td>
+          <td><%= image_tag lost_pet.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %></td>
           <td><%= link_to lost_pet.customer.name, customer_path(lost_pet.customer.id) %></td>
         </tr>
       <% end %>
@@ -72,7 +72,7 @@
         <tr>
           <td><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></td>
           <td><%= link_to foster_parent.body, foster_parent_path(foster_parent.id) %></td>
-          <td><%= image_tag foster_parent.customer.get_profile_image(100,100) %></td>
+          <td><%= image_tag foster_parent.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %></td>
           <td><%= link_to foster_parent.customer.name, customer_path(foster_parent.customer.id) %></td>
         </tr>
       <% end %>

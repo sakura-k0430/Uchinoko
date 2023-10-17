@@ -4,9 +4,15 @@
       里親掲示板一覧
     <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
   </h1>
+  <p style="color: #20b2aa;">里親を募集している方や里親になりたい方の交流ができます</p>
+
+  <!--ゲストログインでは投稿不可にするため-->
+  <% if @customer == current_customer %>
   <button type="button" class="btn btn-outline-info btn-lg">
     <i class="fa-solid fa-paper-plane"></i><%= link_to "里親掲示板へ投稿する", new_foster_parent_path %>
   </button>
+   <% end %>
+
   <div class="card-deck" style="width:100rem">
     <% @foster_parents.each do |foster_parent| %>
       <div class="card w-50 mx-auto shadow-lg">
