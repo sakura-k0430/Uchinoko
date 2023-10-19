@@ -1,37 +1,30 @@
-<div class="container mt-5 mb-5">
-  <div class="row">
-    <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <h2>ログイン</h2>
-        <table>
-          <td>会員の方はこちらからログイン</td>
-            <div class="text-left">
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-              <tr>
-                <div class="field">
-                  <td><%= f.label :email %></td>
-                  <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
-                </div>
-              </tr>
-              <tr>
-                <div class="field">
-                  <td><%= f.label :password %></td>
-                  <td><%= f.password_field :password, autocomplete: "current-password" %></td>
-                 </div>
-              </tr>
-              <tr>
-                <div class="actions">
-                  <td></td>
-                  <td><%= f.submit "ログイン" %></td>
-                </div>
-              </tr>
-              <% end %>
-        </table>
-          <div class="text-left">会員登録がお済みでない方</div>
-            <%= link_to "こちら", new_customer_registration_path %>
-              から新規登録してください。
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto text-center shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light py-4 mb-0">ログイン</h5>
+      <div class="form-body p-4">
+        <div class="mx-auto text-center">
+          <p>会員の方はこちらからログイン</p>
+        </div>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+            </div>
+            <%= f.email_field :email, autofocus: true, class: "form-control", autocomplete: "email", placeholder: "メールアドレス" %>
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fas fa-lock"></i></span>
+            </div>
+            <%= f.password_field :password, class: "form-control",autocomplete: "current-password", placeholder: "パスワード" %>
+          </div>
+          <%= f.submit "ログイン", class:"btn btn-lg btn-block btn-info mt-5" %>
+        <% end %>
       </div>
-    <div class="col-md-2"></div>
+    </div>
+  </div>
+  <div class="mx-auto text-center">
+    会員登録がお済みでない方<%= link_to "こちら", new_customer_registration_path %>から新規登録してください。
   </div>
 </div>

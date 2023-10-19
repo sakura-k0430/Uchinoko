@@ -6,7 +6,7 @@ body {
   width: 100%;
   height: 100%;
     .box {
-      background-image: url('Uchinoko_top_image2.jpg');
+      background-image: image-url('Uchinoko_top_image2.jpg');
       background-size: cover;
       background-position: center;
       height: 100%;
@@ -43,7 +43,7 @@ body {
 }
 
 .about-body {
-  background-image: url('Uchinoko_top_image4.jpg');
+  background-image: image-url('Uchinoko_top_image4.jpg');
   background-size: cover;
   background-position: center;
   height: 100%;
