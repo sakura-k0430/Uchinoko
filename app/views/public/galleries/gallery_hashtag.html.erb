@@ -1,12 +1,30 @@
-<h2>ハッシュタグ #<%= @tag.hashname %></h2>
-<div class = "hashtag">
-  <ul>
+<h2>
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+  ギャラリーハッシュタグ
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+</h2>
+<h3 style="color: #20b2aa;">#<%= @tag.hashname %></h3>
+
+<div class="card-deck" style="width:30rem">
     <% @galleries.each do |gallery| %>
-      <li>
+      <div class="card mx-auto shadow-lg">
         <%= link_to gallery_path(gallery.id) do %>
-          <%= image_tag gallery.gallery_image %>
+          <%= image_tag gallery.gallery_image, class:"card-img-top"; %>
         <% end %>
-      </li>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3">
+              <%= image_tag gallery.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+            </div>
+            <div class="col-8">
+              <p class="card-title">
+                <strong><i class= "fa-solid fa-camera-retro"></i><span><%= link_to gallery.title, gallery_path(gallery.id) %></span></strong>
+              </p>
+              <span><i class="fas fa-user"></i> By<%= link_to gallery.customer.name, customer_path(gallery.customer.id) %>｜ </span>
+              <span><%= link_to "#{gallery.gallery_comments.count} コメント", gallery_path(gallery.id) %></span>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
 </div>

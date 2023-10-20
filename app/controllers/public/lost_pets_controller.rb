@@ -43,6 +43,12 @@ class Public::LostPetsController < ApplicationController
     redirect_to lost_pets_path
   end
 
+  def lost_pet_hashtag
+    @customer = current_customer
+    @tag = LostPetHashtag.find_by(hashname: params[:name])
+    @lost_pets = @tag.lost_pets
+  end
+
   private
   def lost_pet_params
     params.require(:lost_pet).permit(:customer_id,:title, :body, :lost_pet_image)

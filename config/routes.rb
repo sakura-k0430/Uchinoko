@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       resource :gallery_favorites, only: [:create, :destroy]
       resources :gallery_comments, only: [:create, :destroy]
     end
+    get '/lost_pet/lost_pet_hashtag/:name', to: "lost_pets#lost_pet_hashtag"
     resources :lost_pets do
        # idを含ませないresourceでルーティング作成（いいねを一人一回までとするため）
       resource :lost_pet_favorites, only: [:create, :destroy]

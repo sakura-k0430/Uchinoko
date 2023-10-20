@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_20_024223) do
+ActiveRecord::Schema.define(version: 2023_10_20_074330) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -200,6 +200,21 @@ ActiveRecord::Schema.define(version: 2023_10_20_024223) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "lost_pet_hashtag_relations", force: :cascade do |t|
+    t.integer "lost_pet_id"
+    t.integer "lost_pet_hashtag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lost_pet_hashtag_id"], name: "index_lost_pet_hashtag_relations_on_lost_pet_hashtag_id"
+    t.index ["lost_pet_id"], name: "index_lost_pet_hashtag_relations_on_lost_pet_id"
+  end
+
+  create_table "lost_pet_hashtags", force: :cascade do |t|
+    t.string "hashname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "lost_pets", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.string "title", null: false
@@ -240,6 +255,8 @@ ActiveRecord::Schema.define(version: 2023_10_20_024223) do
   add_foreign_key "gallery_hashtag_relations", "gallery_hashtags"
   add_foreign_key "group_customers", "customers"
   add_foreign_key "group_customers", "groups"
+  add_foreign_key "lost_pet_hashtag_relations", "lost_pet_hashtags"
+  add_foreign_key "lost_pet_hashtag_relations", "lost_pets"
   add_foreign_key "messages", "customers"
   add_foreign_key "messages", "rooms"
   add_foreign_key "rooms", "customers"

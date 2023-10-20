@@ -27,4 +27,27 @@ class LostPet < ApplicationRecord
     end
   end
 
+  # ハッシュタグ
+  #DBへのコミット直前に実施する
+  after_create do
+    lost_pet = LostPet.find_by(id: self.id)
+    lost_pet_hashtags  = self.body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    lost_pet.lost_pet_hashtags = []
+    lost_pet_hashtags.uniq.map do |hashtag|
+      #ハッシュタグは先頭の'#'を外した上で保存
+      tag = LostPetHashtag.find_or_create_by(hashname: hashtag.downcase.delete('#'))
+      lost_pet.lost_pet_hashtags << tag
+    end
+  end
+
+  before_update do
+    lost_pet = LostPet.find_by(id: self.id)
+    lost_pet.lost_pet_hashtags.clear
+    lost_pet_hashtags = self.body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    lost_pet_hashtags.uniq.map do |hashtag|
+      tag = LostPetHashtag.find_or_create_by(hashname: hashtag.downcase.delete('#'))
+      lost_pet.lost_pet_hashtags << tag
+    end
+  end
+
 end
