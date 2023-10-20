@@ -1,0 +1,12 @@
+<h2>ハッシュタグ #<%= @tag.hashname %></h2>
+<div class = "hashtag">
+  <ul>
+    <% @galleries.each do |gallery| %>
+      <li>
+        <%= link_to gallery_path(gallery.id) do %>
+          <%= image_tag gallery.gallery_image %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

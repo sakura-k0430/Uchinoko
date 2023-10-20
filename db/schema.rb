@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_12_104434) do
+ActiveRecord::Schema.define(version: 2023_10_20_024223) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -130,6 +130,21 @@ ActiveRecord::Schema.define(version: 2023_10_12_104434) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "gallery_hashtag_relations", force: :cascade do |t|
+    t.integer "gallery_id"
+    t.integer "gallery_hashtag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gallery_hashtag_id"], name: "index_gallery_hashtag_relations_on_gallery_hashtag_id"
+    t.index ["gallery_id"], name: "index_gallery_hashtag_relations_on_gallery_id"
+  end
+
+  create_table "gallery_hashtags", force: :cascade do |t|
+    t.string "hashname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "genres", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -150,12 +165,6 @@ ActiveRecord::Schema.define(version: 2023_10_12_104434) do
     t.text "introduction"
     t.string "image_id"
     t.integer "owner_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "hashtags", force: :cascade do |t|
-    t.string "hashname", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -227,6 +236,8 @@ ActiveRecord::Schema.define(version: 2023_10_12_104434) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "entries", "customers"
   add_foreign_key "entries", "rooms"
+  add_foreign_key "gallery_hashtag_relations", "galleries"
+  add_foreign_key "gallery_hashtag_relations", "gallery_hashtags"
   add_foreign_key "group_customers", "customers"
   add_foreign_key "group_customers", "groups"
   add_foreign_key "messages", "customers"

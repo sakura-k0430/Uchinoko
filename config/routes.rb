@@ -53,6 +53,7 @@ Rails.application.routes.draw do
       get "send/mail" => "groups#send_mail"
     end
     resources :articles, only: [:index, :show]
+    get '/gallery/gallery_hashtag/:name', to: "galleries#gallery_hashtag"
     resources :galleries do
       # idを含ませないresourceでルーティング作成（いいねを一人一回までとするため）
       resource :gallery_favorites, only: [:create, :destroy]

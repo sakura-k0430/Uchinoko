@@ -42,6 +42,12 @@ class Public::GalleriesController < ApplicationController
     redirect_to galleries_path
   end
 
+  def gallery_hashtag
+    @customer = current_customer
+    @tag = GalleryHashtag.find_by(hashname: params[:name])
+    @galleries = @tag.galleries
+  end
+
   private
   def gallery_params
     params.require(:gallery).permit(:customer_id,:title, :body, :gallery_image)

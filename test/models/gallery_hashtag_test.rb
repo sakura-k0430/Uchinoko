@@ -1,6 +1,6 @@
 require "test_helper"
 
-class HashtagTest < ActiveSupport::TestCase
+class GalleryHashtagTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

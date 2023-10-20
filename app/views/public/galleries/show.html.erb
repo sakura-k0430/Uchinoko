@@ -25,6 +25,9 @@
               <span><i class="fas fa-user"></i> By<%= link_to @gallery.customer.name, customer_path(@gallery.customer.id) %>｜ </span>
               <!--投稿日表示-->
               <span><i class="fa-solid fa-paper-plane"></i><%= @gallery.created_at.strftime('%Y/%m/%d') %>｜</span>
+
+              <%= render_with_hashtags(@gallery.body) %>
+
               <!--投稿につけられたお気に入りにログインしているユーザ(自分)が含まれているか判断するメソッド-->
               <span><% if @gallery.favorited_by?(current_customer) %>
               <!--remote; trueの追加によりJavaScriptのリクエストがfavoritesコントローラへ送信される data: {"turbolinks" => false}がないとリロードしないといけなくなる-->
