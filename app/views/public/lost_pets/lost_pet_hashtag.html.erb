@@ -6,7 +6,7 @@
 <h3 style="color: #20b2aa;">#<%= @tag.hashname %></h3>
 
 <div class="card-deck" style="width:30rem">
-    <% @galleries.each do |lost_pet| %>
+    <% @lost_pets.each do |lost_pet| %>
       <div class="card mx-auto shadow-lg">
         <%= link_to lost_pet_path(lost_pet.id) do %>
           <%= image_tag lost_pet.lost_pet_image, class:"card-img-top"; %>

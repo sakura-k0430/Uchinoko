@@ -20,7 +20,7 @@
                 <strong><i class="fa-solid fa-camera-retro"></i><span><%= @gallery.title %></span></strong>
               </p>
               <!--投稿本文とハッシュタグ表示-->
-              <p class="card-text"><%= render_with_hashtags(@gallery.body) %></p>
+              <p class="card-text"><%= render_with_gallery_hashtags(@gallery.body) %></p>
               <!--投稿ユーザー名表示-->
               <span><i class="fas fa-user"></i> By<%= link_to @gallery.customer.name, customer_path(@gallery.customer.id) %>｜ </span>
               <!--投稿日表示-->

@@ -20,7 +20,7 @@
                 <strong><i class="fa-solid fa-shoe-prints"></i><span><%= @lost_pet.title %></span></strong>
               </p>
               <!--投稿本文とハッシュタグ表示-->
-              <p class="card-text"><%= render_with_hashtags(@lost_pet.body) %></p>
+              <p class="card-text"><%= render_with_lost_pet_hashtags(@lost_pet.body) %></p>
               <!--投稿ユーザー名表示-->
               <span><i class="fas fa-user"></i> By<%= link_to @lost_pet.customer.name, customer_path(@lost_pet.customer.id) %>｜ </span>
               <!--投稿日表示-->
