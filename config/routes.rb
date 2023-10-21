@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     get 'customers/check'
     get '/gallery/gallery_hashtag/:name', to: "galleries#gallery_hashtag"
     get '/lost_pet/lost_pet_hashtag/:name', to: "lost_pets#lost_pet_hashtag"
+    get '/foster_parent/foster_parent_hashtag/:name', to: "foster_parents#foster_parent_hashtag"
     patch 'customers/withdraw'
     resources :customers, only:  [:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]

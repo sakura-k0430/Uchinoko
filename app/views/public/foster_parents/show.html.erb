@@ -19,8 +19,8 @@
                 <!--投稿タイトル表示-->
                 <strong><i class="fa-solid fa-shield-dog"></i><span><%= @foster_parent.title %></span></strong>
               </p>
-              <!--投稿本文表示-->
-              <p class="card-text"><%= @foster_parent.body %></p>
+              <!--投稿本文とハッシュタグ表示-->
+              <p class="card-text"><%= render_with_foster_parent_hashtags(@foster_parent.body) %></p>
               <!--投稿ユーザー名表示-->
               <span><i class="fas fa-user"></i> By<%= link_to @foster_parent.customer.name, customer_path(@foster_parent.customer.id) %>｜ </span>
               <!--投稿日表示-->

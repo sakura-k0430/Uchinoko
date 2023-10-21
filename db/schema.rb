@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_20_074330) do
+ActiveRecord::Schema.define(version: 2023_10_21_025840) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -99,12 +99,27 @@ ActiveRecord::Schema.define(version: 2023_10_20_074330) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "foster_parent_hashtags", force: :cascade do |t|
+    t.string "hashname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "foster_parents", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.string "title", null: false
     t.string "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "fp_hashtag_relations", force: :cascade do |t|
+    t.integer "foster_parent_id"
+    t.integer "foster_parent_hashtag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["foster_parent_hashtag_id"], name: "index_fp_hashtag_relations_on_foster_parent_hashtag_id"
+    t.index ["foster_parent_id"], name: "index_fp_hashtag_relations_on_foster_parent_id"
   end
 
   create_table "galleries", force: :cascade do |t|
@@ -251,6 +266,8 @@ ActiveRecord::Schema.define(version: 2023_10_20_074330) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "entries", "customers"
   add_foreign_key "entries", "rooms"
+  add_foreign_key "fp_hashtag_relations", "foster_parent_hashtags"
+  add_foreign_key "fp_hashtag_relations", "foster_parents"
   add_foreign_key "gallery_hashtag_relations", "galleries"
   add_foreign_key "gallery_hashtag_relations", "gallery_hashtags"
   add_foreign_key "group_customers", "customers"

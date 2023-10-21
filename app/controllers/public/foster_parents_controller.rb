@@ -42,6 +42,12 @@ class Public::FosterParentsController < ApplicationController
     redirect_to foster_parents_path
   end
 
+  def foster_parent_hashtag
+    @customer = current_customer
+    @tag = FosterParentHashtag.find_by(hashname: params[:name])
+    @foster_parents = @tag.foster_parents
+  end
+
   private
   def foster_parent_params
     params.require(:foster_parent).permit(:customer_id,:title, :body, :foster_parent_image)

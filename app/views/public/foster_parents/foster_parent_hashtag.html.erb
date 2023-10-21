@@ -1,0 +1,30 @@
+<h2>
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+  ギャラリーハッシュタグ
+  <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
+</h2>
+<h3 style="color: #20b2aa;">#<%= @tag.hashname %></h3>
+
+<div class="card-deck" style="width:30rem">
+    <% @foster_parents.each do |foster_parent| %>
+      <div class="card mx-auto shadow-lg">
+        <%= link_to foster_parent_path(foster_parent.id) do %>
+          <%= image_tag foster_parent.foster_parent_image, class:"card-img-top"; %>
+        <% end %>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3">
+              <%= image_tag foster_parent.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+            </div>
+            <div class="col-8">
+              <p class="card-title">
+                <strong><i class= "fa-solid fa-camera-retro"></i><span><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></span></strong>
+              </p>
+              <span><i class="fas fa-user"></i> By<%= link_to foster_parent.customer.name, customer_path(foster_parent.customer.id) %>｜ </span>
+              <span><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+</div>
