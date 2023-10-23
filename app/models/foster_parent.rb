@@ -3,7 +3,7 @@ class FosterParent < ApplicationRecord
   belongs_to :customer
   has_many :foster_parent_comments, dependent: :destroy
   has_many :foster_parent_favorites, dependent: :destroy
-  has_many :fp_hashtag_relations
+  has_many :fp_hashtag_relations, dependent: :destroy
   has_many :foster_parent_hashtags, through: :fp_hashtag_relations
   validates :title, presence: true
   validates :body, presence: true

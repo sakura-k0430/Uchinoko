@@ -3,7 +3,7 @@ class Gallery < ApplicationRecord
   belongs_to :customer
   has_many :gallery_comments, dependent: :destroy
   has_many :gallery_favorites, dependent: :destroy
-  has_many :gallery_hashtag_relations
+  has_many :gallery_hashtag_relations, dependent: :destroy
   has_many :gallery_hashtags, through: :gallery_hashtag_relations
   validates :title, presence: true
   validates :body, presence: true

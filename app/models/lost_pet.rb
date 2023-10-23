@@ -3,7 +3,7 @@ class LostPet < ApplicationRecord
   belongs_to :customer
   has_many :lost_pet_comments, dependent: :destroy
   has_many :lost_pet_favorites, dependent: :destroy
-   has_many :lost_pet_hashtag_relations
+   has_many :lost_pet_hashtag_relations, dependent: :destroy
   has_many :lost_pet_hashtags, through: :lost_pet_hashtag_relations
   validates :title, presence: true
   validates :body, presence: true

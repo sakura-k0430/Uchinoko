@@ -6,6 +6,7 @@ class Public::GroupCustomersController < ApplicationController
     # 現在のユーザーを取得し、group_customersにnewメソッドで新しいレコードを作成、group_idを渡してどのグループに参加するか指定
     group_customer = current_customer.group_customers.new(group_id: params[:group_id])
     group_customer.save
+    flash[:notice] = "グループに参加しました。"
     redirect_to request.referer
   end
 
@@ -13,6 +14,7 @@ class Public::GroupCustomersController < ApplicationController
     # ログインしているユーザーの group_customers 関連付けを使用して、指定されたグループに関連付けられた group_customerインスタンスをfind_byメソッドで検索
     group_customer = current_customer.group_customers.find_by(group_id: params[:group_id])
     group_customer.destroy
+    flash[:notice] = "グループを脱退しました。"
     redirect_to request.referer
   end
 
