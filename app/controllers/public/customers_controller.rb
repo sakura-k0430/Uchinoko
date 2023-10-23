@@ -61,15 +61,15 @@ class Public::CustomersController < ApplicationController
     gallery_favorites = GalleryFavorite.where(customer_id: @customer.id).pluck(:gallery_id)
     # 上記で取得してきたデータを引き渡す
     @favorite_galleries = Gallery.find(gallery_favorites)
-    @gallery = Gallery.find(params[:id])
+    @gallery = Gallery.find_by(params[:id])
 
     lost_pet_favorites = LostPetFavorite.where(customer_id: @customer.id).pluck(:lost_pet_id)
     @favorite_lost_pets = LostPet.find(lost_pet_favorites)
-    @lost_pet = LostPet.find(params[:id])
+    @lost_pet = LostPet.find_by(params[:id])
 
     foster_parent_favorites = FosterParentFavorite.where(customer_id: @customer.id).pluck(:foster_parent_id)
     @favorite_foster_parents = FosterParent.find(foster_parent_favorites)
-    @foster_parent = FosterParent.find(params[:id])
+    @foster_parent = FosterParent.find_by(params[:id])
   end
 
   # 自身の投稿とフォローしている人の全ての投稿(タイムライン表示)

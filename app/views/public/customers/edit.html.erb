@@ -1,35 +1,38 @@
-<div class="container mt-5 mb-5">
-  <div class="row">
-    <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <h2>
-          <i class="fa-solid fa-cat" style="color: #20b2aa;"></i>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light p-4 mb-0">
+        <i class="fa-solid fa-cat" style="color: #20b2aa;"></i>
           プロフィール編集
-          <i class="fa-solid fa-cat" style="color: #20b2aa;"></i>
-        </h2>
-        <br><br>
-      <table>
-      <%= form_with model: @customer do |f| %>
-        <tr>
-          <td><label for="inputName">ニックネーム</label></td>
-          <td><%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"ニックネーム"%></td>
-        </tr>
-        <tr>
-          <td><label for="inputAddress">住んでいる地域(任意)</label></td>
-          <td><%= f.text_field :address, id:"inputAddress", placeholder:"住んでいる地域(任意)"%></td>
-        </tr>
-        <tr>
-          <td><label for="inputIntroduction">自己紹介文</label></td>
-          <td><%= f.text_area :introduction, id:"inputIntroduction",size: "30x5", placeholder:"自己紹介を入力"%></td>
-        </tr>
-        <tr>
-          <td><label for="inputImage">プロフィール画像</label></td>
-          <td><%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %></td>
-        </tr>
-      </table>
-      <%= f.submit "変更を保存" %>
+        <i class="fa-solid fa-cat" style="color: #20b2aa;"></i>
+      </h5>
+      <div class="form-body p-4">
+        <%= form_with model: @customer do |f| %>
+        <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*", class: "w-100" %>
+        <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-tag"></i></span>
+          </div>
+          <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"ニックネーム"%>
+        </div>
+
+        <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-map-pin"></i></span>
+          </div>
+          <%= f.text_field :address, id:"inputAddress", placeholder:"住んでいる地域(任意)"%>
+        </div>
+
+        <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-pen"></i></span>
+          </div>
+          <%= f.text_area :introduction, id:"inputIntroduction",size: "30x5", placeholder:"自己紹介を入力"%>
+        </div>
+        <hr>
+      <%= f.submit "変更を保存", class:"btn btn-lg btn-block btn-info mt-4" %>
       <% end %>
+      </div>
     </div>
-    <div class="col-md-2"></div>
   </div>
 </div>

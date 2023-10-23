@@ -10,7 +10,7 @@
     <i class="fa-solid fa-paper-plane"></i><%= link_to "ギャラリーへ投稿する", new_gallery_path %>
   </button>
 
-  <div class="card-deck" style="width:100rem">
+  <div class="card-deck" style="width:70rem">
     <% @galleries.each do |gallery| %>
       <div class="card mx-auto shadow-lg">
         <%= image_tag gallery.gallery_image, class:"card-img-top"; %>

@@ -17,13 +17,21 @@
   </head>
 
   <body>
+    <header>
     <%= render 'layouts/header' %>
+    </header>
+
+    <main>
     <%= render 'layouts/seach_window' %>
-    <%= render 'layouts/hospital_seach' %>
     <% flash.each do |message_type, message| %>
       <div class="flash-message <%= message_type %>"><%= message %></div>
     <% end %>
     <%= yield %>
+    </main>
+
+    <fooder>
     <%= render 'layouts/footer' %>
+    </fooder>
+
   </body>
 </html>

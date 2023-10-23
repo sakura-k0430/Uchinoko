@@ -55,3 +55,8 @@ body {
   color: #930403;
   border: solid 1px #930403;
 }
+
+main {
+  background-color: #fffacd;
+  padding-bottom: 20px;
+}

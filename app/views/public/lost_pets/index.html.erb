@@ -10,7 +10,7 @@
     <i class="fa-solid fa-paper-plane"></i><%= link_to "迷子掲示板へ投稿する", new_lost_pet_path %>
   </button>
 
-    <div class="card-deck" style="width:100rem">
+    <div class="card-deck" style="width:70rem">
       <% @lost_pets.each do |lost_pet| %>
         <div class="card w-25 mx-auto shadow-lg">
           <%= image_tag lost_pet.lost_pet_image, class:"card-img-top"; %>

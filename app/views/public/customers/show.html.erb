@@ -108,6 +108,7 @@
   <%= @customer.name %>さんの迷子掲示板投稿一覧
   <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
 </h3>
+
 <% if @lost_pets.exists? %>
   <div class="card-deck" style="width: 18rem;">
     <div class="card mx-auto shadow-lg">
@@ -119,10 +120,10 @@
       <span><i class="fa-solid fa-paper-plane"></i><%= lost_pet.created_at.strftime('%Y/%m/%d') %></span>
       <span><i class="fa-solid fa-comment"></i><%= link_to "#{lost_pet.lost_pet_comments.count} コメント", lost_pet_path(lost_pet.id) %></span>
       <% end %>
+    </div>
 <% else %>
   <p style="color: #20b2aa;">投稿はありません</p>
 <% end %>
-</div>
 </div>
 
 <!-- ユーザーの里親掲示板投稿一覧 -->
@@ -131,6 +132,7 @@
   <%= @customer.name %>さんの里親掲示板投稿一覧
   <i class="fa-solid fa-paw" style="color: #20b2aa;"></i>
 </h3>
+
 <% if @foster_parents.exists? %>
   <div class="card-deck" style="width: 18rem;">
     <div class="card mx-auto shadow-lg">
@@ -138,13 +140,14 @@
       <%= link_to foster_parent_path(foster_parent.id) do %>
       <%= image_tag foster_parent.foster_parent_image, class:"card-img-top";%>
       <% end %>
-      <span><i class="fa-solid fa-shoe-prints"></i><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></span>
+      <span><i class="fa-solid fa-shield-dog"></i><%= link_to foster_parent.title, foster_parent_path(foster_parent.id) %></span>
       <span><i class="fa-solid fa-paper-plane"></i><%= foster_parent.created_at.strftime('%Y/%m/%d') %></span>
       <span><i class="fa-solid fa-comment"></i><%= link_to "#{foster_parent.foster_parent_comments.count} コメント", foster_parent_path(foster_parent.id) %></span>
       <% end %>
+    </div>
 <% else %>
   <p style="color: #20b2aa;">投稿はありません</p>
 <% end %>
 </div>
-</div>
+
 </div>
