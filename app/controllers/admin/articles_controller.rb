@@ -32,7 +32,7 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def destroy
-    article = Article.find(params[:id])
+    article = Article.find_by(params[:id])
     article.destroy
     redirect_to admin_articles_path
   end
