@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <thead>
-        <%= form_with model: @customer, url: admin_customer_path(@customer), method: :patch, local: true do |f| %>
+        <%= form_with model: @customer, url: admin_customer_path(@customer), method: :patch do |f| %>
         <% render "public/shared/error_messages", resource: @customer %>
         <tr>
           <th>ニックネーム</th>
