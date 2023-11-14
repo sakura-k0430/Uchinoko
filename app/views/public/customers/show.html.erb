@@ -16,7 +16,7 @@
   <div class="card w-50 mx-auto shadow-lg">
     <%= image_tag @customer.get_profile_image(300,300) %>
     <div class="card-body">
-      <h5 class="card-title">Uchinoko Name:<%= @customer.name %></h5>
+      <h5 class="card-title"><%= @customer.name %></h5>
         <p class="card-text">自己紹介:<br>
         <%= @customer.introduction %></p>
     </div>
