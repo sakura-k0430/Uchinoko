@@ -160,12 +160,6 @@ ActiveRecord::Schema.define(version: 2023_10_21_025840) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "genres", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "group_customers", force: :cascade do |t|
     t.integer "customer_id"
     t.integer "group_id"
@@ -189,15 +183,6 @@ ActiveRecord::Schema.define(version: 2023_10_21_025840) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "genre_id"
     t.integer "hospital_id"
-  end
-
-  create_table "hospitals", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "phone_number", null: false
-    t.string "explanation", null: false
-    t.string "address", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "lost_pet_comments", force: :cascade do |t|
