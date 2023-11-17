@@ -27,6 +27,13 @@
 <!--どのような時に使うのかの状況を記載すること-->
 ​
 ## 設計書
+- ER図
+https://drive.google.com/file/d/1xuxgJgrkMegx7zcHyfBkNYhtxbpDPe6g/view?usp=sharing
+- UI Flows
+https://drive.google.com/file/d/1hNx8585tw_dUkDpOfvBpWe9rquOGTw-s/view?usp=sharing
+- アプリケーション詳細設計書
+https://docs.google.com/spreadsheets/d/1K6ieQET1w8344UkcfvwNweEOmC7BrugxjWlyj-XPPxI/edit#gid=549108681
+
 <!--テーマを設定・提出する時点では不要です-->
 
 ## 使用ツール
